@@ -14,13 +14,19 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.fun.midworx.LoginActivity"
-            android:label="@string/app_name" >
+                android:name="com.fun.midworx.LoginActivity"
+                android:screenOrientation="portrait"
+                android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+                android:name="com.fun.midworx.MainActivity"
+                android:screenOrientation="portrait"
+                android:label="@string/app_name" >
         </activity>
     </application>
 
