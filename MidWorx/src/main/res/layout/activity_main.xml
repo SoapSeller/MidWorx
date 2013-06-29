@@ -5,7 +5,8 @@
                 android:layout_height="match_parent">
 
     <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/score_txt"
+            android:layout_width="100dp"
             android:layout_height="50dp"
             android:background="#3f00"
             android:gravity="center"
@@ -14,12 +15,52 @@
 
 
     <TextView
+            android:id="@+id/time_txt"
+            android:layout_width="100dp"
             android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:background="#3f00"
             android:gravity="center"
             android:padding="10dp"
             android:text="time" />
+
+
+    <TextView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_toLeftOf="@+id/time_txt"
+            android:layout_toRightOf="@+id/score_txt"
+            android:background="#300f"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="notifications" />
+
+    <FrameLayout
+            android:id="@+id/letters_organizer"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_above="@+id/guess_btn"
+            android:background="#30f0"/>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/rounded_bg"
+            android:text="@string/guess"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:id="@+id/guess_btn" />
+
+    <LinearLayout
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#3000"
+            android:orientation="horizontal"
+            android:id="@+id/words_boxes_layout"
+            android:layout_above="@+id/letters_organizer"
+            android:layout_below="@+id/score_txt" />
 
 </RelativeLayout>
