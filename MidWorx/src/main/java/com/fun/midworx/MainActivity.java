@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.fun.midworx.com.fun.midworx.views.LetterOrganizer;
 import com.fun.midworx.com.fun.midworx.views.WordsBox;
 
 import java.util.ArrayList;
@@ -36,6 +38,12 @@ public class MainActivity extends Activity {
         addBox(boxesLayout,params,words4);
         addBox(boxesLayout,params,words5);
         addBox(boxesLayout,params,words6);
+
+		FrameLayout letterOrganizerContainer = (FrameLayout) findViewById(R.id.letters_organizer);
+		LinearLayout letterOrganizer = new LetterOrganizer(this);
+		letterOrganizerContainer.addView(letterOrganizer);
+
+
     }
 
     private void addBox(LinearLayout boxesLayout,LinearLayout.LayoutParams params, ArrayList<String> words) {
