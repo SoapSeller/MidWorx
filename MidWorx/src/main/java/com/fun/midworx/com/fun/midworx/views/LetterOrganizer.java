@@ -48,7 +48,7 @@ public class LetterOrganizer extends LinearLayout {
 			this.index = index;
 			this.state = state;
 			setTextAppearance(getContext(), R.style.PrettyButton);
-			setBackground(getResources().getDrawable(R.drawable.green_button));
+			setBackgroundResource(R.drawable.green_button);
 			this.state.onPoolChange(this);
 			this.setOnClickListener(new OnClickListener() {
 				@Override

@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends Activity {
-    private static final int MAX_GAME_SECONDS = 5;
+    private static final int MAX_GAME_SECONDS = 30;
     private BoxesContainer mBoxesContainer;
     private TextView mScoreText;
     private int mSessionScore = 0;
