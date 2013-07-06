@@ -35,7 +35,7 @@
             android:padding="10dp"
             android:text="notifications" />
 
-    <FrameLayout
+    <EditText
             android:id="@+id/letters_organizer"
             android:layout_width="match_parent"
             android:layout_height="150dp"
@@ -53,7 +53,7 @@
             android:layout_margin="10dp"
             android:id="@+id/guess_btn" />
 
-    <LinearLayout
+    <com.fun.midworx.com.fun.midworx.views.BoxesContainer
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
