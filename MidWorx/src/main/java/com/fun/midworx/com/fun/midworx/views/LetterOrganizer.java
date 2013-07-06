@@ -1,14 +1,12 @@
 package com.fun.midworx.com.fun.midworx.views;
 
-import android.R;
+import android.view.View;
+import com.fun.midworx.IPoolChangeCallback;
+import com.fun.midworx.LetterChooserState;
+import com.fun.midworx.R;
 import android.content.Context;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.widget.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,27 +17,54 @@ public class LetterOrganizer extends LinearLayout {
 
 	ChooserSource chooserSource;
 
+	LetterChooserState letterChooserState;
+
 	public LetterOrganizer(Context context) {
 		super(context);
 		this.setOrientation(LinearLayout.HORIZONTAL);
 
-		chooserSource = new ChooserSource(context);
+		List<String> letters = Arrays.asList("A","B","C","D","E","F");
+
+		letterChooserState = new LetterChooserState();
+		chooserSource = new ChooserSource(context, letterChooserState);
 		this.addView(chooserSource,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-		chooserSource.setLetters(Arrays.asList("A","B","C","D","E","F"));
+		this.letterChooserState.setLettersPool(letters);
 	}
 
 
-	private class SelectableLetterView extends TextView {
+	private class SelectableLetterView extends Button implements IPoolChangeCallback {
 
-		private String letter;
+		private LetterChooserState state;
+		private int index;
 
-		public SelectableLetterView(Context context) {
+		public SelectableLetterView(Context context, int index, LetterChooserState state) {
 			super(context);
+			this.index = index;
+			this.state = state;
+			setTextAppearance(getContext(), R.style.PrettyButton);
+			setBackground(getResources().getDrawable(R.drawable.green_button));
+			this.state.onPoolChange(this);
+			this.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					SelectableLetterView.this.clicked();
+				}
+			});
 		}
 
-		public void setLetter(String letter){
-			this.letter = letter;
-			this.setText(letter);
+		private void clicked(){
+			if (!this.getText().equals("")){
+				this.state.chooseLetter(this.index);
+			}
+		}
+
+		@Override
+		public void poolChanged(List<Integer> chosenLetterIndexes) {
+			if (!chosenLetterIndexes.contains(this.index)){
+				this.setText(this.state.getLetterForIndex(this.index));
+			} else {
+				this.setText("");
+			}
 		}
 	}
 
@@ -49,10 +74,12 @@ public class LetterOrganizer extends LinearLayout {
 		private TableRow lettersRow;
 
 		private List<SelectableLetterView> selectableLetterViews;
+		private LetterChooserState state;
 
 
-		public ChooserSource(Context context) {
+		public ChooserSource(Context context, LetterChooserState state) {
 			super(context);
+			this.state = state;
 			setupRow();
 		}
 
@@ -61,15 +88,14 @@ public class LetterOrganizer extends LinearLayout {
 			lettersRow.setBackgroundColor(0xff00ff00);
 			LayoutParams rowParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 			this.addView(lettersRow,rowParams);
+			this.setLettersButtons();
 		}
 
-		public void setLetters(List<String> letters){
-
-			for (String letter : letters) {
-				SelectableLetterView selectableLetter = new SelectableLetterView(getContext());
+		private void setLettersButtons() {
+			for(int i=0; i<6;i++){
+				SelectableLetterView selectableLetter = new SelectableLetterView(getContext(),i,state);
 				selectableLetter.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 1));
 				selectableLetter.setGravity(TableLayout.TEXT_ALIGNMENT_CENTER);
-				selectableLetter.setLetter(letter);
 				lettersRow.addView(selectableLetter);
 			}
 		}
