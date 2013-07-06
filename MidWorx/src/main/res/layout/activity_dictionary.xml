@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <!-- This shouldn't be a TextView, but the same widget as used in the previous screen. -->
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Cow"
+            android:id="@+id/textView"
+            android:layout_gravity="left|center_vertical"/>
+
+    <!-- Image doesn't have to be shown every time, only if needed. -->
+    <ImageView
+            android:layout_width="188dp"
+            android:layout_height="133dp"
+            android:id="@+id/image"
+            android:src="@drawable/cow"
+            android:layout_gravity="right|center_vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"/>
+
+    <!-- Should contain the phonetic parts of the word -->
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:text="free·ly \n /ˈfrēlē/"
+            android:id="@+id/phoneticText"
+            android:layout_alignBottom="@+id/image"
+            android:layout_alignParentLeft="true"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pronounceButton"
+            android:layout_alignBottom="@+id/phoneticText"
+            android:layout_toRightOf="@+id/phoneticText"
+            android:src="@drawable/pronunciation"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adverb Not under the control of another; as one wishes. Without restriction or interference. Synonyms free - loosely "
+            android:id="@+id/definitionText"
+            android:layout_below="@+id/phoneticText"
+            android:layout_alignParentLeft="true"/>
+
+    <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/languageSpinner"
+            android:layout_below="@+id/definitionText"
+            android:layout_alignParentLeft="true"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="פרה"
+            android:id="@+id/translation"
+            android:layout_alignTop="@+id/languageSpinner"
+            android:layout_alignParentRight="true"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Statistics will go here..."
+            android:id="@+id/stats"
+            android:layout_below="@+id/languageSpinner"
+            android:layout_alignParentLeft="true"/>
+
+    <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/researchSpinner"
+            android:layout_above="@+id/likeButton"
+            android:layout_alignParentLeft="true"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Like"
+            android:id="@+id/likeButton"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"/>
+
+</RelativeLayout>
