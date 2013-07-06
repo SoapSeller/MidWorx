@@ -6,13 +6,14 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Words {
     private static final int UINT_SIZE = 4;
+
+    private static final int MIN_WORD_COUNT = 5;
 
     private DataInputStream stream;
     private BufferedReader wordsReader;
@@ -30,24 +31,25 @@ public class Words {
 
         numOfWords = swapEndian(stream.readInt());
 
-        wordsIdxOffset = 4 + numOfWords*4*2;
+        wordsIdxOffset = UINT_SIZE + numOfWords*UINT_SIZE*2;
     }
 
     public List<String> getWord() throws IOException {
-        stream.reset();
-        stream.skip(UINT_SIZE); // Num of words
-
         List<String> words = new ArrayList<String>();
 
-        int idx = random.nextInt(numOfWords);
+        int pos, num;
+        do {
+            int idx = random.nextInt(numOfWords);
 
-        stream.skipBytes(idx*UINT_SIZE*2); // skip IDX pairs of uint32
+            stream.reset();
+            stream.skip(UINT_SIZE + idx * UINT_SIZE * 2); // skip first uint32 and IDX pairs of uint32
 
-        int pos = swapEndian(stream.readInt());
-        int num = swapEndian(stream.readInt());
+            pos = swapEndian(stream.readInt());
+            num = swapEndian(stream.readInt());
+        } while (num < MIN_WORD_COUNT);
 
         stream.reset();
-        stream.skip(wordsIdxOffset + pos*4);
+        stream.skip(wordsIdxOffset + pos*UINT_SIZE);
 
         for (int i = 0 ; i < num; ++i) {
             int wordPos = swapEndian(stream.readInt());
@@ -59,14 +61,6 @@ public class Words {
 
         return words;
     }
-
-
-//    private long readUnit32(byte[] data) {
-//        return ((data[0]&0xFF)) |
-//                ((data[1]&0xFF) << 8) |
-//                ((data[2]&0xFF) << 16)  |
-//                (data[3]&0xFF) << 24;
-//    }
 
     private int swapEndian(int val) {
         return ((val & 0xFF) << 24)  |
