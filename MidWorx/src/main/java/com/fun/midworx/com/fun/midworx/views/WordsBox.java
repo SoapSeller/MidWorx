@@ -1,6 +1,7 @@
 package com.fun.midworx.com.fun.midworx.views;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,7 +23,7 @@ public class WordsBox extends LinearLayout {
     public WordsBox(Context context, ArrayList<String> words) {
         super(context);
         setOrientation(VERTICAL);
-        setPadding(5,5,5,5);
+        setPadding(5, 5, 5, 5);
 
         mLettersNum = words.size() > 0 ? words.get(0).length() : 0;
         setBackgroundColor(0xffff0000 * mLettersNum / 6);
@@ -39,7 +40,7 @@ public class WordsBox extends LinearLayout {
             mWords.put(words.get(i), addWordView());
     }
 
-    public void guessWord(String word) {
+    public boolean guessWord(String word) {
         if (mWords.containsKey(word)) {
             WordView wordView = mWords.get(word);
             //only handle the guess if this is the first time the user guesses this word
@@ -50,8 +51,10 @@ public class WordsBox extends LinearLayout {
                 //check if we guessed all words
                 if (mGuessed == mWords.size())
                     setBackgroundColor(0xff00ff00);
+                return true;
             }
         }
+        return false;
     }
 
     private WordView addWordView() {
@@ -61,11 +64,16 @@ public class WordsBox extends LinearLayout {
         return wordView;
     }
 
+    public Integer getLettersNum() {
+        return mLettersNum;
+    }
+
     private class WordView extends TextView {
         private boolean mGuessed = false;
 
         public WordView(Context context) {
             super(context);
+            setGravity(Gravity.CENTER);
         }
 
         private boolean isGuessed() {

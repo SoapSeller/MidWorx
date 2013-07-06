@@ -6,22 +6,30 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.fun.midworx.com.fun.midworx.views.LetterOrganizer;
 import com.fun.midworx.com.fun.midworx.views.WordsBox;
+import com.fun.midworx.com.fun.midworx.views.BoxesContainer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends Activity {
-    ArrayList<WordsBox> mBoxes = new ArrayList<WordsBox>();
+    private BoxesContainer mBoxesContainer;
+    private TextView mScoreText;
+    private int mSessionScore = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setGuessButton();
 
         //dummy data
         ArrayList<String> words3 = new ArrayList<String>(Arrays.asList("rtg","nsr","uda","sdf","yui"));
@@ -30,14 +38,13 @@ public class MainActivity extends Activity {
         ArrayList<String> words6 = new ArrayList<String>(Arrays.asList("rtguda"));
 
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(5,5,5,5);
-        LinearLayout boxesLayout= (LinearLayout) findViewById(R.id.words_boxes_layout);
+        mBoxesContainer = (BoxesContainer) findViewById(R.id.words_boxes_layout);
+        mScoreText = (TextView) findViewById(R.id.score_txt);
 
-        addBox(boxesLayout,params,words3);
-        addBox(boxesLayout,params,words4);
-        addBox(boxesLayout,params,words5);
-        addBox(boxesLayout,params,words6);
+        mBoxesContainer.addBox(words3);
+        mBoxesContainer.addBox(words4);
+        mBoxesContainer.addBox(words5);
+        mBoxesContainer.addBox(words6);
 
 		FrameLayout letterOrganizerContainer = (FrameLayout) findViewById(R.id.letters_organizer);
 		LinearLayout letterOrganizer = new LetterOrganizer(this);
@@ -46,15 +53,31 @@ public class MainActivity extends Activity {
 
     }
 
-    private void addBox(LinearLayout boxesLayout,LinearLayout.LayoutParams params, ArrayList<String> words) {
-        WordsBox box = new WordsBox(this,words);
-        boxesLayout.addView(box,params);
-        mBoxes.add(box);
+    private void setGuessButton() {
+        findViewById(R.id.guess_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guessWord(getCurrentGuess());
+            }
+        });
     }
 
     private void guessWord(String word) {
+        if (mBoxesContainer.guessWord(word));
+            addToScore(word);
+    }
 
+    private void addToScore(String word) {
+        mSessionScore += calculateWordScore(word);
+        mScoreText.setText("" + mSessionScore);
+    }
 
+    private int calculateWordScore(String word) {
+        return word.length();
+    }
+
+    private String getCurrentGuess() {
+        return ((EditText)findViewById(R.id.letters_organizer)).getText().toString();
     }
 
 }
