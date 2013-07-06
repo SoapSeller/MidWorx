@@ -2,13 +2,13 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+                android:layout_height="match_parent"
+        android:background="#f2f2f2">
 
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.4"
+            android:alpha="0.2"
             android:scaleType="centerCrop"
             android:src="@drawable/background"/>
 
@@ -16,10 +16,11 @@
             android:id="@+id/score_txt"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:background="#3f00"
+            android:textSize="26dp"
+            android:background="#f2c230"
+            android:textColor="#ffff"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="score" />
+            android:text="0" />
 
 
     <TextView
@@ -27,9 +28,10 @@
             android:layout_width="100dp"
             android:layout_alignParentRight="true"
             android:layout_height="50dp"
-            android:background="#3f00"
             android:gravity="center"
-            android:padding="10dp"
+            android:textSize="26dp"
+            android:background="#f2c230"
+            android:textColor="#ffff"
             android:text="time" />
 
 
@@ -38,7 +40,6 @@
             android:layout_height="50dp"
             android:layout_toLeftOf="@+id/time_txt"
             android:layout_toRightOf="@+id/score_txt"
-            android:background="#300f"
             android:gravity="center"
             android:padding="10dp"
             android:text="notifications" />
@@ -47,8 +48,7 @@
             android:id="@+id/letters_organizer"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_above="@+id/guess_btn"
-            android:background="#30f0"/>
+            android:layout_above="@+id/guess_btn"/>
 
     <TextView
             android:layout_width="match_parent"
@@ -57,15 +57,16 @@
             android:background="@drawable/rounded_bg"
             android:text="@string/guess"
             android:gravity="center"
-            android:padding="10dp"
-            android:layout_margin="10dp"
+            android:textColor="#fff"
+            android:textSize="24dp"
+            android:padding="16dp"
+            android:layout_margin="16dp"
             android:id="@+id/guess_btn" />
 
     <com.fun.midworx.com.fun.midworx.views.BoxesContainer
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#3000"
             android:orientation="horizontal"
             android:id="@+id/words_boxes_layout"
             android:layout_above="@+id/letters_organizer"

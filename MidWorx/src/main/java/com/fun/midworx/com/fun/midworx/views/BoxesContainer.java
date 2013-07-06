@@ -16,7 +16,7 @@ public class BoxesContainer extends LinearLayout {
 
     public BoxesContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
-        params = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        params = new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT,1);
         params.setMargins(5, 5, 5, 5);
     }
 

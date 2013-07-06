@@ -1,6 +1,8 @@
 package com.fun.midworx;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 
@@ -16,6 +18,9 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        handleActionBar();
+
         setContentView(R.layout.activity_login);
         updateTextTotalScore();
         findViewById(R.id.start_game_btn).setOnClickListener(new View.OnClickListener() {
@@ -38,6 +43,11 @@ public class LoginActivity extends Activity {
 //        } catch (Exception e){
 //            Log.i("WORDS", e.toString());
 //        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private void handleActionBar() {
+        getActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override

@@ -27,7 +27,7 @@ public class WordsBox extends LinearLayout {
         setPadding(5, 5, 5, 5);
 
         mLettersNum = words.size() > 0 ? words.get(0).length() : 0;
-        setBackgroundColor(0xffff0000 * mLettersNum / 6);
+        setBackgroundColor(0xff9cbd86);// * mLettersNum / 6);
 
         c = context;
 
