@@ -1,9 +1,20 @@
-#include <map>
-#include <iostream>
-#include <string>
 #include <fstream>
+#include <iostream>
+#include <map>
 #include <set>
+#include <string>
 #include <vector>
+
+/* This program generates the index file for words.
+ * Format of the index file:
+ * <6 letter words count>[<location of index><num of words>, ...][[<location of word>, ...], ...]
+ *    6 letter words count: Kind of obvious.
+ *    location of index: Location of the current chosen query in this file. One
+ *        should seek for (1 + <6 letter words count> * 2 + <location of index>).
+ *    num of words: Number of words for the current query.
+ *    location of word: The location of the current word in the words file. Just
+ *        seek there.
+ */
 
 using namespace std;
 
@@ -62,8 +73,8 @@ void create_index(string fname, const set<map<char, size_t> >& six_letter_words,
   vector<pair<uint32_t, uint32_t> > index_index;
   vector<uint32_t> word_index;
 
-  uint32_t i = 0;
-  for (set<map<char, size_t> >::const_iterator iter = six_letter_words.begin(); iter != six_letter_words.end(); ++iter, ++i) {
+  uint32_t idx = 0;
+  for (set<map<char, size_t> >::const_iterator iter = six_letter_words.begin(); iter != six_letter_words.end(); ++iter) {
     uint32_t word_count = 0;
     for (map<map<char, size_t>, uint32_t>::const_iterator words_iter = all_words.begin(); words_iter != all_words.end(); ++words_iter) {
       if (check_word_in_word(words_iter->first, *iter)) {
@@ -71,7 +82,8 @@ void create_index(string fname, const set<map<char, size_t> >& six_letter_words,
         word_index.push_back(words_iter->second);
       }
     }
-    index_index.push_back(make_pair(i, word_count));
+    index_index.push_back(make_pair(idx, word_count));
+    idx += word_count * 2;
   }
 
   file.write(reinterpret_cast<char*>(index_index.data()), index_index.size() * sizeof(uint32_t) * 2);
