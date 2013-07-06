@@ -30,6 +30,10 @@ map<char, size_t> break_word(string word) {
   return broken;
 }
 
+bool not_alpha(char c) {
+  return !isalpha(c);
+}
+
 pair<map<map<char, size_t>, uint32_t>, set<map<char, size_t> > > read_words(string fname) {
   map<map<char, size_t>, uint32_t> all_words;
   set<map<char, size_t> > six_letter_words;
@@ -42,7 +46,8 @@ pair<map<map<char, size_t>, uint32_t>, set<map<char, size_t> > > read_words(stri
     rtrim(word);
     std::transform(word.begin(), word.end(), word.begin(), ::tolower);
     map<char, size_t> broken_word = break_word(word);
-    if ((word.size() < 3) || (word.size() > 6)) {
+    if ((word.size() < 3) || (word.size() > 6) ||
+        (find_if(word.begin(), word.end(), not_alpha) != word.end())) {
       continue;
     }
     all_words[broken_word] = seek;
@@ -51,7 +56,6 @@ pair<map<map<char, size_t>, uint32_t>, set<map<char, size_t> > > read_words(stri
       six_letter_words.insert(broken_word);
     }
   }
-  cout << all_words.size() << endl;
   file.close();
   return make_pair(all_words, six_letter_words);
 }
@@ -83,7 +87,7 @@ void create_index(string fname, const set<map<char, size_t> >& six_letter_words,
       }
     }
     index_index.push_back(make_pair(idx, word_count));
-    idx += word_count * 2;
+    idx += word_count;
   }
 
   file.write(reinterpret_cast<char*>(index_index.data()), index_index.size() * sizeof(uint32_t) * 2);
@@ -92,10 +96,14 @@ void create_index(string fname, const set<map<char, size_t> >& six_letter_words,
   file.close();
 }
 
-int main() {
+int main(int argc, char** argv) {
+  if (argc != 2) {
+    cout << "Usage: " << argv[0] << " output_file" << endl;
+    return 1;
+  }
   pair<map<map<char, size_t>, uint32_t>, set<map<char, size_t> > > pair_words = read_words("./words");
   map<map<char, size_t>, uint32_t> all_words = pair_words.first;
   set<map<char, size_t> > six_letter_words = pair_words.second;
-  create_index("./db", six_letter_words, all_words);
+  create_index(argv[1], six_letter_words, all_words);
   return 0;
 }
