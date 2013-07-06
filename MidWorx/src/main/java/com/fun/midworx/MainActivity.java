@@ -1,34 +1,23 @@
 package com.fun.midworx;
 
-import android.annotation.TargetApi;
-import android.os.Build;
-import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
-import android.view.ViewGroup;
-import android.widget.*;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.fun.midworx.com.fun.midworx.views.LetterOrganizer;
-import com.fun.midworx.com.fun.midworx.views.WordsBox;
 import com.fun.midworx.com.fun.midworx.views.BoxesContainer;
 import com.fun.midworx.com.fun.midworx.views.LetterOrganizer;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends Activity {
-    private static final int MAX_GAME_SECONDS = 120;
+public class MainActivity extends MidWorxActivity {
+    private static final int MAX_GAME_SECONDS = 30;
     private BoxesContainer mBoxesContainer;
     private TextView mScoreText;
     private int mSessionScore = 0;
@@ -42,9 +31,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        handleActionBar();
-
 
         try {
             mWords = new Words(getApplicationContext());
@@ -68,11 +54,6 @@ public class MainActivity extends Activity {
         startNewGame();
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void handleActionBar() {
-        getActionBar().setDisplayShowTitleEnabled(false);
-    }
-
     private void startNewGame() {
 
         //dummy data
@@ -84,7 +65,6 @@ public class MainActivity extends Activity {
         }
 
         ArrayList<ArrayList<String>> wordsByLength = new ArrayList<ArrayList<String>>();
-
         for(int i = 0; i < 6; ++i) {
             wordsByLength.add(new ArrayList<String>());
         }
