@@ -20,6 +20,7 @@ import com.fun.midworx.com.fun.midworx.views.WordsBox;
 import com.fun.midworx.com.fun.midworx.views.BoxesContainer;
 import com.fun.midworx.com.fun.midworx.views.LetterOrganizer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,9 +35,18 @@ public class MainActivity extends Activity {
 
 	private LetterOrganizer letterOrganizer;
 
+    private Words mWords;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try {
+            mWords = new Words(getApplicationContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         setContentView(R.layout.activity_main);
 
         setGuessButton();
@@ -56,22 +66,36 @@ public class MainActivity extends Activity {
     private void startNewGame() {
 
         //dummy data
-        ArrayList<String> words3 = new ArrayList<String>(Arrays.asList("rtg","nsr","uda","sdf","yui"));
-        ArrayList<String> words4 = new ArrayList<String>(Arrays.asList("rtdg","nsar","yisr"));
-        ArrayList<String> words5 = new ArrayList<String>(Arrays.asList("rtgsr","udsra"));
-        ArrayList<String> words6 = new ArrayList<String>(Arrays.asList("rtguda"));
+        List<String> words = null;
+        try {
+            words = mWords.getWord();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        mBoxesContainer.addBox(words3);
-        mBoxesContainer.addBox(words4);
-        mBoxesContainer.addBox(words5);
-        mBoxesContainer.addBox(words6);
+        ArrayList<ArrayList<String>> wordsByLength = new ArrayList<ArrayList<String>>();
+        for(int i = 0; i < 6; ++i) {
+            wordsByLength.add(new ArrayList<String>());
+        }
+
+        for (String word: words) {
+            wordsByLength.get(word.length()-1).add(word);
+        }
+
+        for (int i = 2; i < 6; ++i) {
+            mBoxesContainer.addBox(wordsByLength.get(i));
+        }
 
         startTimer();
 		FrameLayout letterOrganizerContainer = (FrameLayout) findViewById(R.id.letters_organizer);
 		letterOrganizer = new LetterOrganizer(this);
 		letterOrganizerContainer.addView(letterOrganizer);
 
-		List<String> letters = Arrays.asList("A","B","C","D","E","F");
+		List<String> letters = new ArrayList<String>();
+        String lettersWord = wordsByLength.get(5).get(0).toUpperCase();
+        for (int i = 0; i < lettersWord.length(); ++i) {
+            letters.add(String.valueOf(lettersWord.charAt(i)));
+        }
 		letterOrganizer.setLettersPool(letters);
     }
 

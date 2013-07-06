@@ -12,14 +12,14 @@ import java.util.List;
 import java.util.Random;
 
 public class Words {
-    static final int UINT_SIZE = 4;
+    private static final int UINT_SIZE = 4;
 
     private DataInputStream stream;
     private BufferedReader wordsReader;
     private int numOfWords;
     private int wordsIdxOffset;
 
-    Random random;
+    private Random random;
 
     public Words(Context context) throws IOException {
         random = new Random();
