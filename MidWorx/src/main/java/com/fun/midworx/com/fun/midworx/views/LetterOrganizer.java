@@ -23,11 +23,17 @@ public class LetterOrganizer extends LinearLayout {
 		super(context);
 		this.setOrientation(LinearLayout.HORIZONTAL);
 
-		List<String> letters = Arrays.asList("A","B","C","D","E","F");
-
 		letterChooserState = new LetterChooserState();
 		chooserSource = new ChooserSource(context, letterChooserState);
 		this.addView(chooserSource,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+
+	}
+
+	public String getCurrentGuess() {
+		return this.letterChooserState.getChosenWord();
+	}
+
+	public void setLettersPool(List<String> letters){
 		this.letterChooserState.setLettersPool(letters);
 	}
 
@@ -69,7 +75,7 @@ public class LetterOrganizer extends LinearLayout {
 	}
 
 
-	public class ChooserSource extends TableLayout {
+	private class ChooserSource extends TableLayout {
 
 		private TableRow lettersRow;
 

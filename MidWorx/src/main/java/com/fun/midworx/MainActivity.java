@@ -4,12 +4,9 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.*;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.fun.midworx.com.fun.midworx.views.LetterOrganizer;
 import com.fun.midworx.com.fun.midworx.views.WordsBox;
@@ -23,6 +20,8 @@ public class MainActivity extends Activity {
     private BoxesContainer mBoxesContainer;
     private TextView mScoreText;
     private int mSessionScore = 0;
+
+	private LetterOrganizer letterOrganizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +46,11 @@ public class MainActivity extends Activity {
         mBoxesContainer.addBox(words6);
 
 		FrameLayout letterOrganizerContainer = (FrameLayout) findViewById(R.id.letters_organizer);
-		LinearLayout letterOrganizer = new LetterOrganizer(this);
+		letterOrganizer = new LetterOrganizer(this);
 		letterOrganizerContainer.addView(letterOrganizer);
 
-
+		List<String> letters = Arrays.asList("A","B","C","D","E","F");
+		letterOrganizer.setLettersPool(letters);
     }
 
     private void setGuessButton() {
@@ -77,7 +77,7 @@ public class MainActivity extends Activity {
     }
 
     private String getCurrentGuess() {
-        return ((EditText)findViewById(R.id.letters_organizer)).getText().toString();
+		return letterOrganizer.getCurrentGuess();
     }
 
 }

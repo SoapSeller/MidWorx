@@ -15,7 +15,15 @@ public class LetterChooserState {
 	public void setLettersPool(List<String> lettersPool){
 		this.lettersPool = new ArrayList<String>(lettersPool);
 		this.chosenLetterIndexes = new ArrayList<Integer>();
-		this.resetChoosable();
+		this.resetChosen();
+	}
+
+	public String getChosenWord(){
+		String res = "";
+		for (Integer i : chosenLetterIndexes) { res += lettersPool.get(i); }
+		this.resetChosen();
+		return res;
+
 	}
 
 	public void chooseLetter(int index){
@@ -24,7 +32,6 @@ public class LetterChooserState {
 	}
 
 	private void poolChanged(){
-
 		for (IPoolChangeCallback poolChangeListener : this.poolChangeListeners) {
 			poolChangeListener.poolChanged(chosenLetterIndexes);
 		}
@@ -34,7 +41,7 @@ public class LetterChooserState {
 		return lettersPool.get(index);
 	}
 
-	public void resetChoosable(){
+	private void resetChosen(){
 		for (IPoolChangeCallback poolChangeListener : this.poolChangeListeners) {
 			poolChangeListener.poolChanged(chosenLetterIndexes);
 		}
