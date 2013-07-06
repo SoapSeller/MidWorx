@@ -2,43 +2,76 @@ package com.fun.midworx;
 
 import android.content.Context;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Words {
-    private Map<char[], List<String>> allWordsMap = new HashMap<char[], List<String>>();
-    private List<String> sixLetterWords = new ArrayList<String>();
+    static final int UINT_SIZE = 4;
+
+    private DataInputStream stream;
+    private BufferedReader wordsReader;
+    private int numOfWords;
+    private int wordsIdxOffset;
+
+    Random random;
 
     public Words(Context context) throws IOException {
-        Scanner scanner = new Scanner(context.getAssets().open("words"));
-        while (scanner.hasNext()) {
-            String line = scanner.nextLine().trim().toLowerCase();
-            if (!line.matches("^[a-z]+$")) {
-                continue;
-            }
-            char[] arr = line.toCharArray();
-            Arrays.sort(arr);
-            if (!allWordsMap.containsKey(arr)) {
-                allWordsMap.put(arr, new ArrayList<String>());
-            }
-            allWordsMap.get(arr).add(line);
-            if (line.length() == 6) {
-                sixLetterWords.add(line);
-            }
-        }
+        random = new Random();
+
+        stream = new DataInputStream(context.getAssets().open("words.idx"));
+        wordsReader = new BufferedReader(new InputStreamReader(context.getAssets().open("words")));
+        wordsReader.mark(Integer.MAX_VALUE);
+
+        numOfWords = swapEndian(stream.readInt());
+
+        wordsIdxOffset = 4 + numOfWords*4*2;
     }
 
-    public List<String> getWord() {
-        int n = new Random().nextInt(sixLetterWords.size());
-        String chosenWord = sixLetterWords.get(n);
-        char[] arr = chosenWord.toCharArray();
-        Arrays.sort(arr);
-        return allWordsMap.get(arr);
+    public List<String> getWord() throws IOException {
+        stream.reset();
+        stream.skip(UINT_SIZE); // Num of words
+
+        List<String> words = new ArrayList<String>();
+
+        int idx = random.nextInt(numOfWords);
+
+        stream.skipBytes(idx*UINT_SIZE*2); // skip IDX pairs of uint32
+
+        int pos = swapEndian(stream.readInt());
+        int num = swapEndian(stream.readInt());
+
+        stream.reset();
+        stream.skip(wordsIdxOffset + pos*4);
+
+        for (int i = 0 ; i < num; ++i) {
+            int wordPos = swapEndian(stream.readInt());
+
+            wordsReader.reset();
+            wordsReader.skip(wordPos);
+            words.add(wordsReader.readLine().toLowerCase());
+        }
+
+        return words;
+    }
+
+
+//    private long readUnit32(byte[] data) {
+//        return ((data[0]&0xFF)) |
+//                ((data[1]&0xFF) << 8) |
+//                ((data[2]&0xFF) << 16)  |
+//                (data[3]&0xFF) << 24;
+//    }
+
+    private int swapEndian(int val) {
+        return ((val & 0xFF) << 24)  |
+               ((val & 0xFF00) << 8) |
+               ((val >> 8) & 0xFF00) |
+               ((val >> 24) & 0xFF);
     }
 }

@@ -3,8 +3,11 @@ package com.fun.midworx;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+
 import android.view.View;
 import android.widget.TextView;
+
+import java.util.List;
 //import android.widget.TextView;
 //import com.fun.midworx.R;
 
@@ -22,6 +25,19 @@ public class LoginActivity extends Activity {
                 startActivityForResult(intent, 0);
             }
         });
+
+//        try {
+//            Words w = new Words(getApplicationContext());
+//
+//            long start  = System.currentTimeMillis();
+//            List<String> words = w.getWord();
+//            for (String s: words) {
+//                Log.i("WORDS", s);
+//            }
+//            Log.i("WORDS", "Time: " + (System.currentTimeMillis()-start));
+//        } catch (Exception e){
+//            Log.i("WORDS", e.toString());
+//        }
     }
 
     @Override
