@@ -1,13 +1,19 @@
 package com.fun.midworx;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.app.Activity;
+
 import android.view.View;
 import android.widget.TextView;
+
+import java.util.List;
 //import android.widget.TextView;
 //import com.fun.midworx.R;
 
-public class LoginActivity extends MidWorxActivity {
+public class LoginActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +28,31 @@ public class LoginActivity extends MidWorxActivity {
                 startActivityForResult(intent, 0);
             }
         });
+
+//        LinearLayout layout = new LinearLayout(this);
+//        layout.setOrientation(LinearLayout.VERTICAL);
+//        final WordFlipper flipper = new WordFlipper(this);
+//        setContentView(layout);
+//        layout.addView(flipper);
+//        flipper.setWord("Rotem");
+//        Button show = new Button(this);
+//        show.setText("SHOW!");
+//        layout.addView(show);
+//        show.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                flipper.showWord();
+//            }
+//        });
+//        Button hide = new Button(this);
+//        hide.setText("HIDE!");
+//        layout.addView(hide);
+//        hide.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                flipper.hideWord();
+//            }
+//        });
 
 //        try {
 //            Words w = new Words(getApplicationContext());

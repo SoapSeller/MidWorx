@@ -4,13 +4,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
         android:background="#f2f2f2">
-
+<!--
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.2"
             android:scaleType="centerCrop"
-            android:src="@drawable/background"/>
+            android:src="@drawable/background"/>-->
 
     <TextView
             android:id="@+id/score_txt"
@@ -56,17 +56,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/rounded_bg"
+            android:background="#fff25749"
             android:text="@string/guess"
             android:gravity="center"
             android:textColor="#fff"
             android:textSize="24dp"
             android:padding="16dp"
-            android:layout_margin="16dp"
             android:id="@+id/guess_btn" />
 
     <com.fun.midworx.com.fun.midworx.views.BoxesContainer
-            android:padding="5dp"
+            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
