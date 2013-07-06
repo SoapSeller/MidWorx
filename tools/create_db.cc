@@ -97,13 +97,13 @@ void create_index(string fname, const set<map<char, size_t> >& six_letter_words,
 }
 
 int main(int argc, char** argv) {
-  if (argc != 2) {
-    cout << "Usage: " << argv[0] << " output_file" << endl;
+  if (argc != 3) {
+    cout << "Usage: " << argv[0] << " input_file output_file" << endl;
     return 1;
   }
-  pair<map<map<char, size_t>, uint32_t>, set<map<char, size_t> > > pair_words = read_words("./words");
+  pair<map<map<char, size_t>, uint32_t>, set<map<char, size_t> > > pair_words = read_words(argv[1]);
   map<map<char, size_t>, uint32_t> all_words = pair_words.first;
   set<map<char, size_t> > six_letter_words = pair_words.second;
-  create_index(argv[1], six_letter_words, all_words);
+  create_index(argv[2], six_letter_words, all_words);
   return 0;
 }
