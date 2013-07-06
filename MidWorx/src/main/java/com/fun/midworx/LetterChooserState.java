@@ -45,6 +45,8 @@ public class LetterChooserState {
 		for (IPoolChangeCallback poolChangeListener : this.poolChangeListeners) {
 			poolChangeListener.poolChanged(chosenLetterIndexes);
 		}
+		chosenLetterIndexes = new ArrayList<Integer>();
+		poolChanged();
 	}
 
 	private List<IPoolChangeCallback> poolChangeListeners = new ArrayList<IPoolChangeCallback>();
