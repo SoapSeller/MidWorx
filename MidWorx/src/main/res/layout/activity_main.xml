@@ -35,7 +35,7 @@
             android:padding="10dp"
             android:text="notifications" />
 
-    <EditText
+    <FrameLayout
             android:id="@+id/letters_organizer"
             android:layout_width="match_parent"
             android:layout_height="150dp"
