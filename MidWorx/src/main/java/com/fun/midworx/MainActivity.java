@@ -83,7 +83,7 @@ public class MainActivity extends MidWorxActivity {
 		letterOrganizerContainer.addView(letterOrganizer);
 
 		List<String> letters = new ArrayList<String>();
-        String lettersWord = wordsByLength.get(5).get(0).toUpperCase();
+        String lettersWord = wordsByLength.get(5).get(0);
         for (int i = 0; i < lettersWord.length(); ++i) {
             letters.add(String.valueOf(lettersWord.charAt(i)));
         }
@@ -135,7 +135,7 @@ public class MainActivity extends MidWorxActivity {
     }
 
     private void guessWord(String word) {
-        if (mBoxesContainer.guessWord(word));
+        if (mBoxesContainer.guessWord(word))
             addToScore(word);
     }
 
