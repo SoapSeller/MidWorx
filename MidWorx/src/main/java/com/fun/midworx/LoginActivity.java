@@ -1,8 +1,6 @@
 package com.fun.midworx;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -14,8 +12,6 @@ public class LoginActivity extends MidWorxActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        handleActionBar();
 
         setContentView(R.layout.activity_login);
         updateTextTotalScore();
@@ -39,11 +35,6 @@ public class LoginActivity extends MidWorxActivity {
 //        } catch (Exception e){
 //            Log.i("WORDS", e.toString());
 //        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void handleActionBar() {
-        getActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override
