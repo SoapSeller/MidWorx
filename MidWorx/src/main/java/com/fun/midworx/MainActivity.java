@@ -83,10 +83,11 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
 
-        mBoxesContainer.addBox(words3);
-        mBoxesContainer.addBox(words4);
-        mBoxesContainer.addBox(words5);
-        mBoxesContainer.addBox(words6);
+        ArrayList<ArrayList<String>> wordsByLength = new ArrayList<ArrayList<String>>();
+
+        for(int i = 0; i < 6; ++i) {
+            wordsByLength.add(new ArrayList<String>());
+        }
 
         for (String word: words) {
             wordsByLength.get(word.length()-1).add(word);
