@@ -1,108 +1,84 @@
 package com.fun.midworx.com.fun.midworx.views;
 
 import android.view.View;
-import com.fun.midworx.IPoolChangeCallback;
+import com.fun.midworx.IChooserStateChange;
 import com.fun.midworx.LetterChooserState;
-import com.fun.midworx.R;
-import android.content.Context;
 import android.widget.*;
+import com.fun.midworx.R;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created: 6/29/13 7:59 PM
  */
-public class LetterOrganizer extends LinearLayout {
+public class LetterOrganizer implements IChooserStateChange {
 
-	ChooserSource chooserSource;
+	LetterChooserState letterChooserState = new LetterChooserState();
 
-	LetterChooserState letterChooserState;
+	private final FrameLayout letterOrganizerContainer;
 
-	public LetterOrganizer(Context context) {
-		super(context);
-		this.setOrientation(LinearLayout.HORIZONTAL);
-
-		letterChooserState = new LetterChooserState();
-		chooserSource = new ChooserSource(context, letterChooserState);
-		this.addView(chooserSource,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-
+	public LetterOrganizer(FrameLayout letterOrganizerContainer) {
+		this.letterOrganizerContainer = letterOrganizerContainer;
+		this.letterChooserState.onStateChange(this);
+		this.setupButtonListeners();
 	}
 
-	public String getCurrentGuess() {
-		return this.letterChooserState.getChosenWord();
-	}
+	private void setupButtonListeners() {
 
-	public void setLettersPool(List<String> letters){
-		this.letterChooserState.setLettersPool(letters);
-	}
-
-
-	private class SelectableLetterView extends Button implements IPoolChangeCallback {
-
-		private LetterChooserState state;
-		private int index;
-
-		public SelectableLetterView(Context context, int index, LetterChooserState state) {
-			super(context);
-			this.index = index;
-			this.state = state;
-			setTextAppearance(getContext(), R.style.PrettyButton);
-			setBackgroundResource(R.drawable.green_button);
-			this.state.onPoolChange(this);
-			this.setOnClickListener(new OnClickListener() {
+		TableRow selectable = ((TableRow)letterOrganizerContainer.findViewById(R.id.selectable_letters));
+		for (int i=0; i< selectable.getChildCount(); i++){
+			selectable.getChildAt(i).setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					SelectableLetterView.this.clicked();
+					selectableClicked(((TableRow) v.getParent()).indexOfChild(v));
 				}
 			});
 		}
 
-		private void clicked(){
-			if (!this.getText().equals("")){
-				this.state.chooseLetter(this.index);
-			}
-		}
-
-		@Override
-		public void poolChanged(List<Integer> chosenLetterIndexes) {
-			if (!chosenLetterIndexes.contains(this.index)){
-				this.setText(this.state.getLetterForIndex(this.index));
-			} else {
-				this.setText("");
-			}
+		TableRow selected = ((TableRow)letterOrganizerContainer.findViewById(R.id.selected_letters));
+		for (int i=0; i< selected.getChildCount(); i++){
+			selected.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					selectedClicked(((TableRow) v.getParent()).indexOfChild(v));
+				}
+			});
 		}
 	}
 
+	public void setLettersPool(List<String> letters) {
+		letterChooserState.setLettersPool(letters);
+	}
 
-	private class ChooserSource extends TableLayout {
+	private void selectableClicked(int index){
+		this.letterChooserState.chooseLetter(index);
+	}
 
-		private TableRow lettersRow;
+	private void selectedClicked(int index){
+		this.letterChooserState.unChooseLetter(index);
+	}
 
-		private List<SelectableLetterView> selectableLetterViews;
-		private LetterChooserState state;
+	public String getCurrentGuessAndReset() {
+		return this.letterChooserState.getChosenWordAndReset();
+	}
 
-
-		public ChooserSource(Context context, LetterChooserState state) {
-			super(context);
-			this.state = state;
-			setupRow();
+	@Override
+	public void chooserStateChane(List<String> letterPool, List<Integer> sortedSelected) {
+		TableRow selectable = ((TableRow)letterOrganizerContainer.findViewById(R.id.selectable_letters));
+		for (int i=0; i< selectable.getChildCount(); i++){
+			if (sortedSelected.contains(i)){
+				((Button)selectable.getChildAt(i)).setText("");
+			} else{
+				((Button)selectable.getChildAt(i)).setText(letterPool.get(i));
+			}
 		}
 
-		private void setupRow() {
-			lettersRow = new TableRow(getContext());
-			lettersRow.setBackgroundColor(0xff00ff00);
-			LayoutParams rowParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-			this.addView(lettersRow,rowParams);
-			this.setLettersButtons();
-		}
-
-		private void setLettersButtons() {
-			for(int i=0; i<6;i++){
-				SelectableLetterView selectableLetter = new SelectableLetterView(getContext(),i,state);
-				selectableLetter.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 1));
-				selectableLetter.setGravity(TableLayout.TEXT_ALIGNMENT_CENTER);
-				lettersRow.addView(selectableLetter);
+		TableRow selected = ((TableRow)letterOrganizerContainer.findViewById(R.id.selected_letters));
+		for (int i=0; i< selected.getChildCount(); i++){
+			if (sortedSelected.size() > i){
+				((Button)selected.getChildAt(i)).setText(letterPool.get( sortedSelected.get(i) ) );
+			} else{
+				((Button)selected.getChildAt(i)).setText("");
 			}
 		}
 	}
