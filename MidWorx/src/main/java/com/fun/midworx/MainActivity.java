@@ -118,6 +118,7 @@ public class MainActivity extends MidWorxActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
         }
+        mBoxesContainer.permitDefinitions();
     }
 
     private void setGuessButton() {
@@ -146,5 +147,4 @@ public class MainActivity extends MidWorxActivity {
     private String getCurrentGuess() {
 		return letterOrganizer.getCurrentGuessAndReset();
     }
-
 }

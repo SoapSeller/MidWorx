@@ -95,7 +95,10 @@ public class DictionaryActivity extends Activity {
     }
 
     Spanned meaningToSpanned(Pair<String, List<String>> meaning) {
-        String text = meaning.first + ": \"" + meaning.second.get(0) + "\"";
+        String text = meaning.first;
+        if (meaning.second.size() > 0) {
+            text += ": \"" + meaning.second.get(0) + "\"";
+        }
         return Html.fromHtml(text.replaceAll("x3c", "<").replaceAll("x3e", ">")
                 .replaceAll("x27", "'"));
     }

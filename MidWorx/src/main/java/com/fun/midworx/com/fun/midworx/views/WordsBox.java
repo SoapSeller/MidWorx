@@ -1,14 +1,18 @@
 package com.fun.midworx.com.fun.midworx.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fun.midworx.DictionaryActivity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -17,7 +21,7 @@ import java.util.Random;
 public class WordsBox extends LinearLayout {
 
     private final int mLettersNum;
-    private final HashMap<String,WordView> mWords = new HashMap<String, WordView>();
+    private final HashMap<String, WordView> mWords = new HashMap<String, WordView>();
     private final Context c;
     private int mGuessed = 0;
 
@@ -71,6 +75,19 @@ public class WordsBox extends LinearLayout {
             if(!wordView.isGuessed()){
                 wordView.showWord(false, rnd.nextInt(700));
             }
+        }
+    }
+
+    public void permitDefinition() {
+        for (final Map.Entry<String, WordView> entry : mWords.entrySet()) {
+            entry.getValue().setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), DictionaryActivity.class);
+                    intent.putExtra("word", entry.getKey());
+                    view.getContext().startActivity(intent);
+                }
+            });
         }
     }
 
