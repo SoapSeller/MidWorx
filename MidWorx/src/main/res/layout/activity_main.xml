@@ -3,6 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingBottom="12dp"
         android:background="@drawable/disco">
 <!--
     <ImageView
@@ -14,26 +15,35 @@
 
     <TextView
             android:id="@+id/score_txt"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:textSize="26dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/ribbon"
             android:textColor="#ffff"
             android:gravity="center"
+            android:typeface="monospace"
             android:text="0" />
 
 
     <TextView
             android:id="@+id/time_txt"
-            android:layout_width="100dp"
+            android:typeface="monospace"
             android:layout_alignParentRight="true"
-            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ribbon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:paddingBottom="10dp"
             android:gravity="center"
-            android:textSize="26dp"
             android:textColor="#ffff"
             android:text="time" />
 
 
     <ImageView
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_toLeftOf="@+id/time_txt"
@@ -52,8 +62,8 @@
                 >
             <TableLayout
                     android:padding="5dp"
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
                     >
                 <TableRow
                         android:id="@+id/selected_letters"
@@ -66,7 +76,6 @@
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
@@ -75,7 +84,6 @@
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
@@ -84,7 +92,6 @@
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
@@ -93,7 +100,6 @@
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
@@ -102,7 +108,6 @@
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
@@ -111,7 +116,6 @@
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     </TableRow>
@@ -126,7 +130,6 @@
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
@@ -135,7 +138,6 @@
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
@@ -144,7 +146,6 @@
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
@@ -153,7 +154,6 @@
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
@@ -162,7 +162,6 @@
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
@@ -171,7 +170,6 @@
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
 
@@ -180,16 +178,16 @@
         </LinearLayout>
 
     <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:background="#afff"
+            android:background="@drawable/btn"
             android:text="@string/guess"
             android:gravity="center"
-            android:textColor="#000"
-            android:textSize="26dp"
-            android:textStyle="bold"
-            android:padding="14dp"
+            android:textColor="#333"
+            android:textSize="22dp"
+            android:typeface="monospace"
             android:id="@+id/guess_btn" />
 
     <com.fun.midworx.com.fun.midworx.views.BoxesContainer
