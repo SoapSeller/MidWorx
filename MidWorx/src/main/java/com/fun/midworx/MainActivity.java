@@ -39,6 +39,7 @@ public class MainActivity extends MidWorxActivity {
         setContentView(R.layout.activity_main);
 
         setGuessButton();
+        setNextButton();
 
         mBoxesContainer = (BoxesContainer) findViewById(R.id.words_boxes_layout);
         mScoreText = (TextView) findViewById(R.id.score_txt);
@@ -79,8 +80,12 @@ public class MainActivity extends MidWorxActivity {
         for (int i = 0; i < lettersWord.length(); ++i) {
             letters.add(String.valueOf(lettersWord.charAt(i)));
         }
-        letterOrganizer.show();
+
 		letterOrganizer.setLettersPool(letters);
+
+        letterOrganizer.show();
+        findViewById(R.id.next_btn).setVisibility(View.GONE);
+        findViewById(R.id.guess_btn).setVisibility(View.VISIBLE);
 
     }
 
@@ -107,6 +112,8 @@ public class MainActivity extends MidWorxActivity {
 
             builder.setMessage("Your score is " + mSessionScore).setTitle("Game Timeout!");
             letterOrganizer.hide();
+            findViewById(R.id.next_btn).setVisibility(View.VISIBLE);
+            findViewById(R.id.guess_btn).setVisibility(View.GONE);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     mBoxesContainer.showUnguessed();
@@ -128,6 +135,15 @@ public class MainActivity extends MidWorxActivity {
         });
     }
 
+    private void setNextButton() {
+        findViewById(R.id.next_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewGame();
+            }
+        });
+    }
+
     private void guessWord(String word) {
         if (mBoxesContainer.guessWord(word))
             addToScore(word);
@@ -145,4 +161,6 @@ public class MainActivity extends MidWorxActivity {
     private String getCurrentGuess() {
 		return letterOrganizer.getCurrentGuessAndReset();
     }
+
+
 }
