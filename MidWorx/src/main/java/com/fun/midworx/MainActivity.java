@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends MidWorxActivity {
-    private static final int MAX_GAME_SECONDS = 30;
+    private static final int MAX_GAME_SECONDS = 120;
     private BoxesContainer mBoxesContainer;
     private TextView mScoreText;
     private int mSessionScore = 0;

@@ -4,106 +4,109 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fun.midworx.R;
 
-/**
- * Created by Rotem on 06/07/13.
- */
 public class WordFlipper extends LinearLayout {
-    private static final int PADDING = 3;
-    private static final int ANIMATION_LETTERS_DELAY = 100;
-    private String mWord;
-    private Context mContext;
-    private LayoutParams params;
 
-    public WordFlipper(Context context) {
-        super(context);
-        init(context);
-    }
+	private String mWord;
+	private Context mContext;
+	private static LayoutParams mParams;
 
-    public WordFlipper(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
-    }
+	// loaded from resources on runtime
+	private static int ANIMATION_LETTERS_DELAY;
+	private static int ANIMATION_DURATION;
 
-    private void init(Context context) {
-        mContext = context;
-        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getResources().getDimension(R.dimen.half_letter_height)*2, getResources().getDisplayMetrics());
-        int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getResources().getDimension(R.dimen.half_letter_height)*2, getResources().getDisplayMetrics());
-        params = new LayoutParams(width,height);
-        params.setMargins(PADDING, PADDING, PADDING, PADDING);
-        setOrientation(HORIZONTAL);
-    }
+	public WordFlipper(Context context) {
+		super(context);
+		init(context);
+	}
 
-    public void setWord(String word) {
-        mWord = word;
-        createViews();
-    }
+	public WordFlipper(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		init(context);
+	}
 
-    public void showWord() {
-        for (int i=0 ; i<getChildCount() ; i++) {
-            ((CharView)getChildAt(i)).showLetter(i * ANIMATION_LETTERS_DELAY);
-        }
-    }
+	private void init(Context context) {
+		mContext = context;
+		ANIMATION_LETTERS_DELAY = getResources().getInteger(R.integer.animation_letters_delay);
+		ANIMATION_DURATION		= getResources().getInteger(R.integer.animation_duration);
+		int height = getResources().getDimensionPixelSize(
+				R.dimen.half_letter_height) * 2;
+		int width = getResources().getDimensionPixelSize(
+				R.dimen.half_letter_width) * 2;
+		mParams = new LayoutParams(width, height);
+		int margin = getResources().getDimensionPixelSize(R.dimen.margin);
+		mParams.setMargins(margin, margin, margin, margin);
+		setOrientation(HORIZONTAL);
+	}
 
-    public void hideWord() {
-        for (int i=0 ; i<getChildCount() ; i++) {
-            ((CharView)getChildAt(i)).hideLetter(i * ANIMATION_LETTERS_DELAY);
-        }
-    }
+	public void setWord(String word) {
+		mWord = word;
+		createViews();
+	}
 
-    private void createViews() {
-        removeAllViews();
-        for (int i=0 ; i<mWord.length() ; i++)
-            addView(new CharView(mContext,mWord.substring(i,i+1)),params);
-    }
+	public void showWord() {
+		for (int i = 0; i < getChildCount(); i++) {
+			((CharView) getChildAt(i)).showLetter(i * ANIMATION_LETTERS_DELAY);
+		}
+	}
 
+	public void hideWord() {
+		for (int i = 0; i < getChildCount(); i++) {
+			((CharView) getChildAt(i)).hideLetter(i * ANIMATION_LETTERS_DELAY);
+		}
+	}
 
-    private class CharView extends TextView {
-        private static final long ANIMATION_DURATION = 400;
-        private String mLetter;
+	private void createViews() {
+		removeAllViews();
+		for (int i = 0; i < mWord.length(); i++)
+			addView(new CharView(mContext, mWord.substring(i, i + 1)), mParams);
+	}
 
-        public CharView(Context context,String letter) {
-            super(context);
-            mLetter = letter;
-            setBackgroundResource(R.drawable.flipper_letter_bg);
-            setGravity(Gravity.CENTER);
-        }
+	private class CharView extends TextView {
+		private String mLetter;
 
-        public void showLetter(int startDelay) {
-            startFlipAnim(startDelay);
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    setText(mLetter);
-                }
-            }, startDelay + ANIMATION_DURATION/2);
-        }
+		public CharView(Context context, String letter) {
+			super(context);
+			mLetter = letter;
+			setBackgroundResource(R.drawable.flipper_letter_bg);
+			setGravity(Gravity.CENTER);
+		}
 
-        public void hideLetter(int startDelay) {
-            startFlipAnim(startDelay);
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    setText("");
-                }
-            },startDelay + ANIMATION_DURATION/2);
-        }
+		public void showLetter(int startDelay) {
+			startFlipAnim(startDelay);
+			postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					setText(mLetter);
+				}
+			}, startDelay + ANIMATION_DURATION / 2);
+		}
 
-        @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-        private void startFlipAnim(int startDelay) {
-            animate().rotationX(360).setDuration(ANIMATION_DURATION).setStartDelay(startDelay).start();
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    setRotationX(0);
-                }
-            },startDelay + ANIMATION_DURATION + 200);
-        }
-    }
+		public void hideLetter(int startDelay) {
+			startFlipAnim(startDelay);
+			postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					setText("");
+				}
+			}, startDelay + ANIMATION_DURATION / 2);
+		}
+
+		@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+		private void startFlipAnim(int startDelay) {
+			animate().rotationX(360).setDuration(ANIMATION_DURATION)
+					.setStartDelay(startDelay).start();
+			postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					setRotationX(0);
+				}
+			}, startDelay + ANIMATION_DURATION + 200);
+		}
+	}
 }

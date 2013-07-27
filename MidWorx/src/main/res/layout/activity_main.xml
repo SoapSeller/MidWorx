@@ -65,7 +65,6 @@
             android:id="@+id/guess_btn" />
 
     <com.fun.midworx.com.fun.midworx.views.BoxesContainer
-            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
