@@ -18,27 +18,22 @@ public class WordsBox extends LinearLayout {
     private final int mLettersNum;
     private final HashMap<String,WordView> mWords = new HashMap<String, WordView>();
     private final Context c;
-    private String mEmpty;
     private int mGuessed = 0;
 
     public WordsBox(Context context, ArrayList<String> words) {
         super(context);
         setOrientation(VERTICAL);
-        setPadding(5, 5, 5, 5);
+//        setPadding(5, 5, 5, 5);
 
         mLettersNum = words.size() > 0 ? words.get(0).length() : 0;
-        setBackgroundColor(0xff9cbd86);// * mLettersNum / 6);
+//        setBackgroundColor(0xff9cbd86);// * mLettersNum / 6);
 
         c = context;
 
-        //create empty text before word is guessed
-        mEmpty = "";
-        for (int i=0 ; i<mLettersNum ; i++)
-            mEmpty += "_ ";
 
         //create a TextView for each word
         for (int i=0 ; i<words.size() ; i++)
-            mWords.put(words.get(i), addWordView());
+            mWords.put(words.get(i), addWordView(words.get(i)));
     }
 
     public boolean guessWord(String word) {
@@ -47,20 +42,20 @@ public class WordsBox extends LinearLayout {
             //only handle the guess if this is the first time the user guesses this word
             if (!wordView.isGuessed()) {
                 wordView.setGuessed(true);
-                wordView.setText(word);
+                wordView.showWord();
                 mGuessed++;
                 //check if we guessed all words
-                if (mGuessed == mWords.size())
-                    setBackgroundColor(0xff00ff00);
+//                if (mGuessed == mWords.size())
+//                    setBackgroundColor(0xff00ff00);
                 return true;
             }
         }
         return false;
     }
 
-    private WordView addWordView() {
+    private WordView addWordView(String word) {
         WordView wordView = new WordView(c);
-        wordView.setText(mEmpty);
+        wordView.setWord(word);
         addView(wordView);
         return wordView;
     }
@@ -69,12 +64,11 @@ public class WordsBox extends LinearLayout {
         return mLettersNum;
     }
 
-    private class WordView extends TextView {
+    private class WordView extends WordFlipper {
         private boolean mGuessed = false;
 
         public WordView(Context context) {
             super(context);
-            setGravity(Gravity.CENTER);
         }
 
         private boolean isGuessed() {

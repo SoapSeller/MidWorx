@@ -6,7 +6,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -29,43 +32,18 @@ public class LoginActivity extends Activity {
             }
         });
 
-//        LinearLayout layout = new LinearLayout(this);
-//        layout.setOrientation(LinearLayout.VERTICAL);
-//        final WordFlipper flipper = new WordFlipper(this);
-//        setContentView(layout);
-//        layout.addView(flipper);
-//        flipper.setWord("Rotem");
-//        Button show = new Button(this);
-//        show.setText("SHOW!");
-//        layout.addView(show);
-//        show.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                flipper.showWord();
-//            }
-//        });
-//        Button hide = new Button(this);
-//        hide.setText("HIDE!");
-//        layout.addView(hide);
-//        hide.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                flipper.hideWord();
-//            }
-//        });
+        try {
+            Words w = new Words(getApplicationContext());
 
-//        try {
-//            Words w = new Words(getApplicationContext());
-//
-//            long start  = System.currentTimeMillis();
-//            List<String> words = w.getWord();
-//            for (String s: words) {
-//                Log.i("WORDS", s);
-//            }
-//            Log.i("WORDS", "Time: " + (System.currentTimeMillis()-start));
-//        } catch (Exception e){
-//            Log.i("WORDS", e.toString());
-//        }
+            long start  = System.currentTimeMillis();
+            List<String> words = w.getWord();
+            for (String s: words) {
+                Log.i("WORDS", s);
+            }
+            Log.i("WORDS", "Time: " + (System.currentTimeMillis()-start));
+        } catch (Exception e){
+            Log.i("WORDS", e.toString());
+        }
     }
 
     @Override

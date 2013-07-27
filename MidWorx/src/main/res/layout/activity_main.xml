@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-        android:background="#f2f2f2">
+        android:background="@drawable/disco">
 <!--
     <ImageView
             android:layout_width="match_parent"
@@ -17,7 +17,6 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:textSize="26dp"
-            android:background="#f2c230"
             android:textColor="#ffff"
             android:gravity="center"
             android:text="0" />
@@ -30,7 +29,6 @@
             android:layout_height="50dp"
             android:gravity="center"
             android:textSize="26dp"
-            android:background="#f2c230"
             android:textColor="#ffff"
             android:text="time" />
 
@@ -42,141 +40,159 @@
             android:layout_toRightOf="@+id/score_txt"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:background="#9000"
             android:src="@drawable/logo"
             android:text="notifications" />
 
-    <FrameLayout
-            android:id="@+id/letters_organizer"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_above="@+id/guess_btn"
-            android:background="#30f0">
-
         <LinearLayout
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
                 android:orientation="horizontal"
+                android:id="@+id/letters_organizer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/guess_btn"
                 >
             <TableLayout
+                    android:padding="5dp"
                     android:layout_height="match_parent"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     >
                 <TableRow
                         android:id="@+id/selected_letters"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_width="match_parent"
                     >
                     <Button
                             android:id="@+id/selected_letters__button_1"
-                            android:gravity="center"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/PrettyButton"
+                            style="@style/PrettyButton"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
                             android:id="@+id/selected_letters__button_2"
-                            android:gravity="center"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/PrettyButton"
+                            style="@style/PrettyButton"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
                             android:id="@+id/selected_letters__button_3"
-                            android:gravity="center"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/PrettyButton"
+                            style="@style/PrettyButton"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
                             android:id="@+id/selected_letters__button_4"
-                            android:gravity="center"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/PrettyButton"
+                            style="@style/PrettyButton"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
                             android:id="@+id/selected_letters__button_5"
-                            android:gravity="center"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/PrettyButton"
+                            style="@style/PrettyButton"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
                             android:id="@+id/selected_letters__button_6"
-                            android:gravity="center"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/PrettyButton"
+                            style="@style/PrettyButton"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     </TableRow>
                 <TableRow
                         android:id="@+id/selectable_letters"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_width="match_parent"
                         >
                     <Button
                             android:id="@+id/selectable_letters__button_1"
-                            android:gravity="center"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/PrettyButton"
+                            style="@style/PrettyButton"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
                             android:id="@+id/selectable_letters__button_2"
-                            android:gravity="center"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/PrettyButton"
+                            style="@style/PrettyButton"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
                             android:id="@+id/selectable_letters__button_3"
-                            android:gravity="center"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/PrettyButton"
+                            style="@style/PrettyButton"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
                             android:id="@+id/selectable_letters__button_4"
-                            android:gravity="center"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/PrettyButton"
+                            style="@style/PrettyButton"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
                             android:id="@+id/selectable_letters__button_5"
-                            android:gravity="center"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/PrettyButton"
+                            style="@style/PrettyButton"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
                     <Button
                             android:id="@+id/selectable_letters__button_6"
-                            android:gravity="center"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/PrettyButton"
+                            style="@style/PrettyButton"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
                             android:background="@drawable/green_button"
                             />
+
                         </TableRow>
             </TableLayout>
         </LinearLayout>
-
-            </FrameLayout>
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="#fff25749"
+            android:background="#afff"
             android:text="@string/guess"
             android:gravity="center"
-            android:textColor="#fff"
-            android:textSize="24dp"
-            android:padding="16dp"
+            android:textColor="#000"
+            android:textSize="26dp"
+            android:textStyle="bold"
+            android:padding="14dp"
             android:id="@+id/guess_btn" />
 
     <com.fun.midworx.com.fun.midworx.views.BoxesContainer
-            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"

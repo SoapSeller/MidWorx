@@ -19,16 +19,10 @@
 
 
     <style name="PrettyButton">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>
-
         <item name="android:textSize">30dp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:shadowColor">#000000</item>
-
-
     </style>
 
 </resources>

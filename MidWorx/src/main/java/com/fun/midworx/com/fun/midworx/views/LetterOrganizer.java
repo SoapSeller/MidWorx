@@ -15,9 +15,9 @@ public class LetterOrganizer implements IChooserStateChange {
 
 	LetterChooserState letterChooserState = new LetterChooserState();
 
-	private final FrameLayout letterOrganizerContainer;
+	private final View letterOrganizerContainer;
 
-	public LetterOrganizer(FrameLayout letterOrganizerContainer) {
+	public LetterOrganizer(View letterOrganizerContainer) {
 		this.letterOrganizerContainer = letterOrganizerContainer;
 		this.letterChooserState.onStateChange(this);
 		this.setupButtonListeners();
