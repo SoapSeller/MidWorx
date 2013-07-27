@@ -55,8 +55,6 @@ public class MainActivity extends MidWorxActivity {
 
 
 		FrameLayout letterOrganizerContainer = (FrameLayout)findViewById(R.id.letters_organizer);
-//		LinearLayout letterOrganizer = new LetterOrganizer(this);
-//		letterOrganizerContainer.addView(letterOrganizer);
 
         startNewGame();
     }

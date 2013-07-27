@@ -31,7 +31,7 @@
         </activity>
         <activity
             android:name="com.fun.midworx.DictionaryActivity"
-            android:label="@string/title_activity_dictionary" >
+             >
         </activity>
     </application>
 

@@ -17,9 +17,7 @@ public class LetterChooserState {
 	}
 
 	public String getChosenWord(){
-		String res = "";
-		this.chosenLetterToIndex.getWord();
-		return res;
+		return this.chosenLetterToIndex.getWord();
 	}
 
 	public String getChosenWordAndReset(){
