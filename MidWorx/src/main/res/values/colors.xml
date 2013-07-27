@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="up_color">  #9cbd86</color>
-    <color name="down_color">#7d986c</color>
-    <color name="up_color_unguessed">  #9cbdff</color>
-    <color name="down_color_unguessed">#7d98ff</color>
+    <!-- Letter flappers -->
+    <color name="up">#9cbd86</color>
+    <color name="down">#7d986c</color>
+    <color name="up_unguessed">#9cbdff</color>
+    <color name="down_unguessed">#7d98ff</color>
 
-    <!-- Colors for definitions activity -->
+    <!-- Definitions activity -->
     <color name="label">#878787</color>
 </resources>

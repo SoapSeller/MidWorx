@@ -3,7 +3,7 @@
 
     <item android:bottom="@dimen/half_letter_height">
         <shape android:shape="rectangle" >
-            <solid android:color="@color/up_color_unguessed" />
+            <solid android:color="@color/up_unguessed" />
 
             <corners
                     android:topLeftRadius="@dimen/flipper_radius"
@@ -12,7 +12,7 @@
     </item>
     <item android:top="@dimen/half_letter_height">
         <shape android:shape="rectangle" >
-            <solid android:color="@color/down_color_unguessed" />
+            <solid android:color="@color/down_unguessed" />
 
             <corners
                     android:bottomLeftRadius="@dimen/flipper_radius"
