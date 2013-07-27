@@ -37,6 +37,10 @@ public class DictionaryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dictionary);
 
+        // TODO(mishas): Debugging needed:
+        //  "ton" <- give better solutions.
+        //  plurals - not taken care of.
+        //  Abbreviation (for example: "cos").
         final String word = getIntent().getExtras().getString("word");
         new DefinitionGetter(word, this).execute();
     }
