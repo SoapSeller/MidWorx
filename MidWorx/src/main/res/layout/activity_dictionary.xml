@@ -39,18 +39,19 @@
             android:layout_toRightOf="@+id/phoneticText"
             android:src="@drawable/pronunciation"/>
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/definitionText"
-            android:layout_below="@+id/phoneticText"
-            android:layout_alignParentLeft="true"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:id="@+id/definitionsList"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@+id/phoneticText"
+                  android:layout_alignParentLeft="true"/>
 
     <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/languageSpinner"
-            android:layout_below="@+id/definitionText"
+            android:layout_below="@+id/definitionsList"
             android:layout_alignParentLeft="true"/>
 
     <TextView

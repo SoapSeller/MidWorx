@@ -7,10 +7,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.text.Html;
+import android.text.Spanned;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -92,6 +94,12 @@ public class DictionaryActivity extends Activity {
         }
     }
 
+    Spanned meaningToSpanned(Pair<String, List<String>> meaning) {
+        String text = meaning.first + ": \"" + meaning.second.get(0) + "\"";
+        return Html.fromHtml(text.replaceAll("x3c", "<").replaceAll("x3e", ">")
+                .replaceAll("x27", "'"));
+    }
+
     class DefinitionGetter extends AsyncTask<Void, Void, JSONObject> {
         private static final String GOOGLE_DICT_URL =
                 "http://www.google.com/dictionary/json?callback=x&q=%s&sl=en&tl=en";
@@ -102,7 +110,7 @@ public class DictionaryActivity extends Activity {
         private TextView wordText;
         private TextView phoneticText;
         private ImageButton pronounceButton;
-        private TextView definitionText;
+        private LinearLayout definitionsList;
 
         DefinitionGetter(String word, Context context) {
             this.word = word;
@@ -111,7 +119,7 @@ public class DictionaryActivity extends Activity {
             this.wordText = (TextView) findViewById(R.id.wordText);
             this.phoneticText = (TextView) findViewById(R.id.phoneticText);
             this.pronounceButton = (ImageButton) findViewById(R.id.pronounceButton);
-            this.definitionText = (TextView) findViewById(R.id.definitionText);
+            this.definitionsList = (LinearLayout) findViewById(R.id.definitionsList);
         }
 
         @Override
@@ -166,29 +174,28 @@ public class DictionaryActivity extends Activity {
                     }
                 });
 
-                String definitions = "";
                 if (headwords.size() == 1) {
                     HeadWord headword = headwords.get(0);
-                    definitions = "<font color='grey'>" + headword.label + "</font>" + "<br><ol>";
-                    for (int i = 0; i < headword.meanings.size(); ++i) {
-                        if (i > 1) {
-                            break;
-                        }
-                        Pair<String, List<String>> meaning = headword.meanings.get(i);
-                        definitions += "<li>" + meaning.first + ": \"" + meaning.second.get(0) + "\"</li>";
+                    View definition = getLayoutInflater().inflate(R.layout.definition, null);
+                    ((TextView) definition.findViewById(R.id.label)).setText(headword.label);
+                    definition.findViewById(R.id.dualMeaning).setVisibility(View.VISIBLE);
+                    Pair<String, List<String>> meaning = headword.meanings.get(0);
+                    ((TextView) definition.findViewById(R.id.firstMeaning)).setText(meaningToSpanned(meaning));
+                    if (headword.meanings.size() > 1) {
+                        meaning = headword.meanings.get(1);
+                        ((TextView) definition.findViewById(R.id.secondMeaning)).setText(meaningToSpanned(meaning));
                     }
-                    definitions += "</ol>";
+                    definitionsList.addView(definition);
                 } else {
                     for (HeadWord headword : headwords) {
-                        definitions += "<font color='grey'>" + headword.label + "</font>" + "<br>";
+                        View definition = getLayoutInflater().inflate(R.layout.definition, null);
+                        definition.findViewById(R.id.singleMeaning).setVisibility(View.VISIBLE);
+                        ((TextView) definition.findViewById(R.id.label)).setText(headword.label);
                         Pair<String, List<String>> meaning = headword.meanings.get(0);
-                        definitions += meaning.first + ": \"" + meaning.second.get(0) + "\"<br><br>";
+                        ((TextView) definition.findViewById(R.id.singleMeaning)).setText(meaningToSpanned(meaning));
+                        definitionsList.addView(definition);
                     }
                 }
-                definitions = definitions
-                        .replaceAll("x3c", "<").replaceAll("x3e", ">")
-                        .replaceAll("x27", "'");
-                definitionText.setText(Html.fromHtml(definitions));
             } catch (JSONException e) {
                 e.printStackTrace();
             };
