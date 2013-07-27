@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:bottom="@dimen/half_letter_height">
+        <shape android:shape="rectangle" >
+            <solid android:color="@color/up_color_unguessed" />
+
+            <corners
+                    android:topLeftRadius="@dimen/flipper_radius"
+                    android:topRightRadius="@dimen/flipper_radius" />
+        </shape>
+    </item>
+    <item android:top="@dimen/half_letter_height">
+        <shape android:shape="rectangle" >
+            <solid android:color="@color/down_color_unguessed" />
+
+            <corners
+                    android:bottomLeftRadius="@dimen/flipper_radius"
+                    android:bottomRightRadius="@dimen/flipper_radius" />
+        </shape>
+    </item>
+
+</layer-list>

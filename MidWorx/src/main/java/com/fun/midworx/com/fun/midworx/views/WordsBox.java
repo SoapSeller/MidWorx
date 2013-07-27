@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Created by Rotem on 29/06/13.
@@ -42,7 +43,7 @@ public class WordsBox extends LinearLayout {
             //only handle the guess if this is the first time the user guesses this word
             if (!wordView.isGuessed()) {
                 wordView.setGuessed(true);
-                wordView.showWord();
+                wordView.showWord(true, 0);
                 mGuessed++;
                 //check if we guessed all words
 //                if (mGuessed == mWords.size())
@@ -62,6 +63,15 @@ public class WordsBox extends LinearLayout {
 
     public Integer getLettersNum() {
         return mLettersNum;
+    }
+
+    public void showUnguessed() {
+        Random rnd = new Random(System.nanoTime());
+        for(WordView wordView: mWords.values()) {
+            if(!wordView.isGuessed()){
+                wordView.showWord(false, rnd.nextInt(700));
+            }
+        }
     }
 
     private class WordView extends WordFlipper {

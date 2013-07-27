@@ -35,4 +35,9 @@ public class BoxesContainer extends LinearLayout {
         mBoxes.put(box.getLettersNum(), box);
     }
 
+    public void showUnguessed() {
+        for(WordsBox box: mBoxes.values()) {
+            box.showUnguessed();
+        }
+    }
 }

@@ -12,6 +12,7 @@ public class LetterChooserState {
 	private ChosenLetterToIndex chosenLetterToIndex = new ChosenLetterToIndex();
 
 	public void setLettersPool(List<String> lettersPool){
+        Collections.shuffle(lettersPool, new Random(System.nanoTime()));
 		this.lettersPool = new ArrayList<String>(lettersPool);
 		this.resetState();
 	}
