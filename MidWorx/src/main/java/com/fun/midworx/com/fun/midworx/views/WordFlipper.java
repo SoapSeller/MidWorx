@@ -49,9 +49,9 @@ public class WordFlipper extends LinearLayout {
 		createViews();
 	}
 
-	public void showWord() {
+	public void showWord(boolean isGuessed, int startDelay) {
 		for (int i = 0; i < getChildCount(); i++) {
-			((CharView) getChildAt(i)).showLetter(i * ANIMATION_LETTERS_DELAY);
+			((CharView) getChildAt(i)).showLetter(isGuessed, startDelay + i * ANIMATION_LETTERS_DELAY);
 		}
 	}
 
@@ -77,7 +77,9 @@ public class WordFlipper extends LinearLayout {
 			setGravity(Gravity.CENTER);
 		}
 
-		public void showLetter(int startDelay) {
+		public void showLetter(boolean isGuessed, int startDelay) {
+            setBackgroundResource(isGuessed ? R.drawable.flipper_letter_bg : R.drawable.flipper_unguessed_letter_bg);
+
 			startFlipAnim(startDelay);
 			postDelayed(new Runnable() {
 				@Override

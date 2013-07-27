@@ -3,4 +3,6 @@
 
     <color name="up_color">  #9cbd86</color>
     <color name="down_color">#7d986c</color>
+    <color name="up_color_unguessed">  #9cbdff</color>
+    <color name="down_color_unguessed">#7d98ff</color>
 </resources>

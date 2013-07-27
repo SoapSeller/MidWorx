@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.fun.midworx.com.fun.midworx.views.LetterOrganizer;
@@ -84,7 +83,7 @@ public class MainActivity extends MidWorxActivity {
 
     }
 
-    private enum endGameReason {TIMEOUT,GUESS_ALL_WORDS}
+    private enum EndGameReason {TIMEOUT,GUESS_ALL_WORDS}
 
     private void startTimer() {
         mLeftSecs = MAX_GAME_SECONDS;
@@ -96,21 +95,23 @@ public class MainActivity extends MidWorxActivity {
                 if (mLeftSecs >= 0)
                     mTimeText.postDelayed(this,1000);
                 else
-                    endGame(endGameReason.TIMEOUT);
+                    endGame(EndGameReason.TIMEOUT);
             }
         });
     }
 
-    private void endGame(endGameReason reason) {
-        if (reason == endGameReason.TIMEOUT) {
+    private void endGame(EndGameReason reason) {
+        if (reason == EndGameReason.TIMEOUT) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
             builder.setMessage("Your score is " + mSessionScore).setTitle("Game Timeout!");
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra("score",mSessionScore);
-                    setResult(RESULT_OK,returnIntent);
-                    MainActivity.this.finish();
+//                    Intent returnIntent = new Intent();
+//                    returnIntent.putExtra("score",mSessionScore);
+//                    setResult(RESULT_OK,returnIntent);
+//                    MainActivity.this.finish();
+                    mBoxesContainer.showUnguessed();
                 }
             });
             builder.setCancelable(false);
