@@ -1,18 +1,11 @@
 package com.fun.midworx;
 
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
-import android.view.ViewGroup;
-import android.widget.*;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fun.midworx.com.fun.midworx.views.LetterOrganizer;
@@ -20,7 +13,6 @@ import com.fun.midworx.com.fun.midworx.views.BoxesContainer;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends MidWorxActivity {
@@ -53,9 +45,6 @@ public class MainActivity extends MidWorxActivity {
         mScoreText = (TextView) findViewById(R.id.score_txt);
         mTimeText = (TextView) findViewById(R.id.time_txt);
 
-
-		FrameLayout letterOrganizerContainer = (FrameLayout)findViewById(R.id.letters_organizer);
-
         startNewGame();
     }
 
@@ -83,8 +72,7 @@ public class MainActivity extends MidWorxActivity {
         }
 
         startTimer();
-		FrameLayout letterOrganizerContainer = (FrameLayout) findViewById(R.id.letters_organizer);
-		letterOrganizer = new LetterOrganizer(letterOrganizerContainer);
+		letterOrganizer = new LetterOrganizer(findViewById(R.id.letters_organizer));
 //		letterOrganizerContainer.addView(letterOrganizer);
 
 		List<String> letters = new ArrayList<String>();

@@ -1,0 +1,4 @@
+<resources>
+    <item type="integer" name="animation_letters_delay">60</item>
+    <item type="integer" name="animation_duration">400</item>
+</resources>
