@@ -105,7 +105,7 @@ public class DictionaryActivity extends Activity {
 
     class DefinitionGetter extends AsyncTask<Void, Void, JSONObject> {
         private static final String GOOGLE_DICT_URL =
-                "http://www.google.com/dictionary/json?callback=x&q=%s&sl=en&tl=en";
+                "http://www.google.com/dictionary/json?callback=x&q=%s&sl=en&tl=en&restrict=pr%2Cde";
 
         private final String word;
         private final Context context;
