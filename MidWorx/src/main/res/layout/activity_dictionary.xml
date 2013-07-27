@@ -10,8 +10,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Cow"
-            android:id="@+id/textView"
+            android:id="@+id/wordText"
             android:layout_gravity="left|center_vertical"/>
 
     <!-- Image doesn't have to be shown every time, only if needed. -->
@@ -19,7 +18,6 @@
             android:layout_width="188dp"
             android:layout_height="133dp"
             android:id="@+id/image"
-            android:src="@drawable/cow"
             android:layout_gravity="right|center_vertical"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"/>
@@ -29,7 +27,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="false"
-            android:text="free·ly \n /ˈfrēlē/"
             android:id="@+id/phoneticText"
             android:layout_alignBottom="@+id/image"
             android:layout_alignParentLeft="true"/>
@@ -45,7 +42,6 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Adverb Not under the control of another; as one wishes. Without restriction or interference. Synonyms free - loosely "
             android:id="@+id/definitionText"
             android:layout_below="@+id/phoneticText"
             android:layout_alignParentLeft="true"/>
