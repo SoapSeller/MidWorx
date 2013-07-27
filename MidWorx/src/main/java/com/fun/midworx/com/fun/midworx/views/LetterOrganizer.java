@@ -84,4 +84,11 @@ public class LetterOrganizer implements IChooserStateChange {
 	}
 
 
+    public void hide() {
+        letterOrganizerContainer.setVisibility(View.INVISIBLE);
+    }
+
+    public void show() {
+        letterOrganizerContainer.setVisibility(View.VISIBLE);
+    }
 }
