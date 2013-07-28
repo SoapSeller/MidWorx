@@ -9,10 +9,10 @@ import android.app.Activity;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Pair;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -22,12 +22,12 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class DictionaryActivity extends Activity {
@@ -38,7 +38,6 @@ public class DictionaryActivity extends Activity {
         setContentView(R.layout.activity_dictionary);
 
         // TODO(mishas): Debugging needed:
-        //  "ton" <- give better solutions.
         //  plurals - not taken care of.
         //  Abbreviation (for example: "cos").
         final String word = getIntent().getExtras().getString("word");
@@ -107,6 +106,22 @@ public class DictionaryActivity extends Activity {
                 .replaceAll("x27", "'"));
     }
 
+    List<View> getTableRows(List<Pair<String, List<String>>> meanings) {
+        List<View> retval = new ArrayList<View>();
+        for (int i = 0; i < meanings.size(); ++i) {
+            View tableRow = getLayoutInflater().inflate(R.layout.definition_meaning, null);
+            TextView ordinal = (TextView) tableRow.findViewById(R.id.ordinal);
+            if (meanings.size() == 1) {
+                ordinal.setVisibility(View.GONE);
+            } else {
+                ordinal.setText((i + 1) + ".");
+            }
+            ((TextView) tableRow.findViewById(R.id.meaning)).setText(meaningToSpanned(meanings.get(i)));
+            retval.add(tableRow);
+        }
+        return retval;
+    }
+
     class DefinitionGetter extends AsyncTask<Void, Void, JSONObject> {
         private static final String GOOGLE_DICT_URL =
                 "http://www.google.com/dictionary/json?callback=x&q=%s&sl=en&tl=en&restrict=pr%2Cde";
@@ -163,45 +178,50 @@ public class DictionaryActivity extends Activity {
 
             try {
                 JSONArray primaries = json.getJSONArray("primaries");
-                final List<HeadWord> headwords = new ArrayList<HeadWord>();
+                final Map<String, List<HeadWord>> headwords = new HashMap<String, List<HeadWord>>();
 
+                HeadWord firstHeadword = null;
                 for (int i = 0; i < primaries.length(); ++i) {
                     JSONObject object = primaries.getJSONObject(i);
                     if (object.getString("type").equals("headword")) {
-                        headwords.add(new HeadWord(object, this.word));
+                        HeadWord headword = new HeadWord(object, this.word);
+                        if (!headwords.containsKey(headword.label)) {
+                            headwords.put(headword.label, new ArrayList<HeadWord>());
+                        }
+                        headwords.get(headword.label).add(headword);
+                        if (firstHeadword == null) {
+                            firstHeadword = headword;
+                        }
                     }
                 }
 
-                wordText.setText(headwords.get(0).text);
-                phoneticText.setText(headwords.get(0).phonetic);
+                wordText.setText(firstHeadword.text);
+                phoneticText.setText(firstHeadword.phonetic);
+                final Uri sound = firstHeadword.sound;
                 pronounceButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        MediaPlayer.create(context, headwords.get(0).sound).start();
+                        MediaPlayer.create(context, sound).start();
                     }
                 });
 
-                if (headwords.size() == 1) {
-                    HeadWord headword = headwords.get(0);
+                for (Map.Entry<String, List<HeadWord>> labelEntry : headwords.entrySet()) {
                     View definition = getLayoutInflater().inflate(R.layout.definition, null);
-                    ((TextView) definition.findViewById(R.id.label)).setText(headword.label);
-                    definition.findViewById(R.id.dualMeaning).setVisibility(View.VISIBLE);
-                    Pair<String, List<String>> meaning = headword.meanings.get(0);
-                    ((TextView) definition.findViewById(R.id.firstMeaning)).setText(meaningToSpanned(meaning));
-                    if (headword.meanings.size() > 1) {
-                        meaning = headword.meanings.get(1);
-                        ((TextView) definition.findViewById(R.id.secondMeaning)).setText(meaningToSpanned(meaning));
+                    ((TextView) definition.findViewById(R.id.label)).setText(labelEntry.getKey());
+                    List<Pair<String, List<String>>> meanings = new ArrayList<Pair<String, List<String>>>();
+                    for (HeadWord headword : labelEntry.getValue()) {
+                        meanings.add(headword.meanings.get(0));
+                    }
+                    if ((headwords.size() == 1) && (labelEntry.getValue().size() == 1) &&
+                            (labelEntry.getValue().get(0).meanings.size() > 1)) {
+                        meanings.add(labelEntry.getValue().get(0).meanings.get(1));
+                    }
+                    List<View> rows = getTableRows(meanings);
+                    TableLayout table = (TableLayout) definition.findViewById(R.id.meaningsTable);
+                    for (View row : rows) {
+                        table.addView(row);
                     }
                     definitionsList.addView(definition);
-                } else {
-                    for (HeadWord headword : headwords) {
-                        View definition = getLayoutInflater().inflate(R.layout.definition, null);
-                        definition.findViewById(R.id.singleMeaning).setVisibility(View.VISIBLE);
-                        ((TextView) definition.findViewById(R.id.label)).setText(headword.label);
-                        Pair<String, List<String>> meaning = headword.meanings.get(0);
-                        ((TextView) definition.findViewById(R.id.singleMeaning)).setText(meaningToSpanned(meaning));
-                        definitionsList.addView(definition);
-                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
