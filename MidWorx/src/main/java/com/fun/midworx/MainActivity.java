@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends MidWorxActivity {
-    private static final int MAX_GAME_SECONDS = 120;
+    private static final int MAX_GAME_SECONDS = 4;
     private BoxesContainer mBoxesContainer;
     private TextView mScoreText;
     private int mSessionScore = 0;
@@ -39,6 +39,7 @@ public class MainActivity extends MidWorxActivity {
         setContentView(R.layout.activity_main);
 
         setGuessButton();
+        setNextButton();
 
         mBoxesContainer = (BoxesContainer) findViewById(R.id.words_boxes_layout);
         mScoreText = (TextView) findViewById(R.id.score_txt);
@@ -79,7 +80,12 @@ public class MainActivity extends MidWorxActivity {
         for (int i = 0; i < lettersWord.length(); ++i) {
             letters.add(String.valueOf(lettersWord.charAt(i)));
         }
+
 		letterOrganizer.setLettersPool(letters);
+
+        letterOrganizer.show();
+        findViewById(R.id.next_btn).setVisibility(View.GONE);
+        findViewById(R.id.guess_btn).setVisibility(View.VISIBLE);
 
     }
 
@@ -105,12 +111,11 @@ public class MainActivity extends MidWorxActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
             builder.setMessage("Your score is " + mSessionScore).setTitle("Game Timeout!");
+            letterOrganizer.hide();
+            findViewById(R.id.next_btn).setVisibility(View.VISIBLE);
+            findViewById(R.id.guess_btn).setVisibility(View.GONE);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-//                    Intent returnIntent = new Intent();
-//                    returnIntent.putExtra("score",mSessionScore);
-//                    setResult(RESULT_OK,returnIntent);
-//                    MainActivity.this.finish();
                     mBoxesContainer.showUnguessed();
                 }
             });
@@ -126,6 +131,15 @@ public class MainActivity extends MidWorxActivity {
             @Override
             public void onClick(View v) {
                 guessWord(getCurrentGuess());
+            }
+        });
+    }
+
+    private void setNextButton() {
+        findViewById(R.id.next_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewGame();
             }
         });
     }
@@ -147,4 +161,6 @@ public class MainActivity extends MidWorxActivity {
     private String getCurrentGuess() {
 		return letterOrganizer.getCurrentGuessAndReset();
     }
+
+
 }

@@ -2,14 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/disco"
     tools:context=".LoginActivity">
-
+<!--
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.4"
             android:scaleType="centerCrop"
-            android:src="@drawable/background"/>
+            android:src="@drawable/background"/>-->
 
     <TextView
             android:textSize="14dp"
@@ -23,12 +24,11 @@
             android:textSize="30dp"
             android:id="@+id/start_game_btn"
             android:layout_centerHorizontal="true"
-            android:alpha="0.9"
             android:layout_below="@+id/total_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/start_game"
-            android:padding="20dp"
-            android:background="@drawable/rounded_bg"/>
+            android:gravity="center"
+            android:background="@drawable/btn"/>
 
 </RelativeLayout>
