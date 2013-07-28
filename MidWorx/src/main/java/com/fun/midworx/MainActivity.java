@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends MidWorxActivity {
-    private static final int MAX_GAME_SECONDS = 4;
+    private static final int MAX_GAME_SECONDS = 30;
     private BoxesContainer mBoxesContainer;
     private TextView mScoreText;
     private int mSessionScore = 0;
@@ -91,7 +91,7 @@ public class MainActivity extends MidWorxActivity {
         mTimeText.post(new Runnable() {
             @Override
             public void run() {
-                mTimeText.setText("" + mLeftSecs);
+                mTimeText.setText("Time: " + mLeftSecs);
                 mLeftSecs--;
                 if (mLeftSecs >= 0)
                     mTimeText.postDelayed(this,1000);
@@ -135,7 +135,7 @@ public class MainActivity extends MidWorxActivity {
 
     private void addToScore(String word) {
         mSessionScore += calculateWordScore(word);
-        mScoreText.setText("" + mSessionScore);
+        mScoreText.setText("Score: " + mSessionScore);
     }
 
     private int calculateWordScore(String word) {

@@ -3,199 +3,58 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="12dp"
         android:background="@drawable/disco">
-<!--
-    <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.2"
-            android:scaleType="centerCrop"
-            android:src="@drawable/background"/>-->
 
-    <TextView
+    <com.fun.midworx.com.fun.midworx.views.CustomTextView
             android:id="@+id/score_txt"
-            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:paddingBottom="10dp"
-            android:background="@drawable/ribbon"
+            android:textSize="24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:textColor="#ffff"
             android:gravity="center"
-            android:typeface="monospace"
-            android:text="0" />
+            android:text="Score: 0" />
 
 
-    <TextView
+    <com.fun.midworx.com.fun.midworx.views.CustomTextView
+            android:layout_below="@+id/score_txt"
             android:id="@+id/time_txt"
-            android:typeface="monospace"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/ribbon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:paddingBottom="10dp"
+            android:textSize="24dp"
+            android:layout_marginLeft="20dp"
             android:gravity="center"
             android:textColor="#ffff"
-            android:text="time" />
+            android:text="Time: 113" />
+
+    <include layout="@layout/letters_organizer"
+             android:id="@+id/letters_organizer"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_above="@+id/guess_btn" />
 
 
-    <ImageView
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_toLeftOf="@+id/time_txt"
-            android:layout_toRightOf="@+id/score_txt"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:src="@drawable/logo"
-            android:text="notifications" />
-
-        <LinearLayout
-                android:orientation="horizontal"
-                android:id="@+id/letters_organizer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/guess_btn"
-                >
-            <TableLayout
-                    android:padding="5dp"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    >
-                <TableRow
-                        android:id="@+id/selected_letters"
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
-                    >
-                    <Button
-                            android:id="@+id/selected_letters__button_1"
-                            style="@style/PrettyButton"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/green_button"
-                            />
-                    <Button
-                            android:id="@+id/selected_letters__button_2"
-                            style="@style/PrettyButton"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/green_button"
-                            />
-                    <Button
-                            android:id="@+id/selected_letters__button_3"
-                            style="@style/PrettyButton"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/green_button"
-                            />
-                    <Button
-                            android:id="@+id/selected_letters__button_4"
-                            style="@style/PrettyButton"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/green_button"
-                            />
-                    <Button
-                            android:id="@+id/selected_letters__button_5"
-                            style="@style/PrettyButton"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/green_button"
-                            />
-                    <Button
-                            android:id="@+id/selected_letters__button_6"
-                            style="@style/PrettyButton"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/green_button"
-                            />
-                    </TableRow>
-                <TableRow
-                        android:id="@+id/selectable_letters"
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
-                        >
-                    <Button
-                            android:id="@+id/selectable_letters__button_1"
-                            style="@style/PrettyButton"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/green_button"
-                            />
-                    <Button
-                            android:id="@+id/selectable_letters__button_2"
-                            style="@style/PrettyButton"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/green_button"
-                            />
-                    <Button
-                            android:id="@+id/selectable_letters__button_3"
-                            style="@style/PrettyButton"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/green_button"
-                            />
-                    <Button
-                            android:id="@+id/selectable_letters__button_4"
-                            style="@style/PrettyButton"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/green_button"
-                            />
-                    <Button
-                            android:id="@+id/selectable_letters__button_5"
-                            style="@style/PrettyButton"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/green_button"
-                            />
-                    <Button
-                            android:id="@+id/selectable_letters__button_6"
-                            style="@style/PrettyButton"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/green_button"
-                            />
-
-                        </TableRow>
-            </TableLayout>
-        </LinearLayout>
-
-    <TextView
+    <com.fun.midworx.com.fun.midworx.views.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/btn"
             android:text="@string/guess"
             android:gravity="center"
-            android:textColor="#333"
-            android:textSize="22dp"
-            android:typeface="monospace"
+            android:textColor="#fff"
+            android:textSize="30dp"
+            android:padding="15dp"
             android:id="@+id/guess_btn" />
 
     <com.fun.midworx.com.fun.midworx.views.BoxesContainer
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:padding="20dp"
             android:id="@+id/words_boxes_layout"
             android:layout_above="@+id/letters_organizer"
-            android:layout_below="@+id/score_txt" />
+            android:layout_below="@+id/time_txt" />
 
 </RelativeLayout>
