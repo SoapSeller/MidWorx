@@ -2,5 +2,7 @@
 *.swp
 .gradle
 .idea
+\out
+\gen
 build
 local.properties
