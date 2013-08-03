@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.fun.midworx.crouton.Configuration;
 import com.fun.midworx.crouton.Crouton;
 import com.fun.midworx.crouton.Style;
+import com.fun.midworx.views.BackgroundFun;
 import com.fun.midworx.views.BoxesContainer;
 import com.fun.midworx.views.LetterOrganizer;
 import com.fun.midworx.views.ScoreManager;
@@ -19,16 +20,18 @@ import java.util.List;
 
 
 public class MainActivity extends MidWorxActivity {
-    private static final int MAX_GAME_SECONDS = 20;
+    private static final int MAX_GAME_SECONDS = 10;
     private BoxesContainer mBoxesContainer;
     private TextView mScoreText;
     private int mLeftSecs;
     private TextView mTimeText;
+    private TextView mLevelText;
 	private LetterOrganizer letterOrganizer;
     private Words mWords;
     private ScoreManager mScoreManager;
     private int mGameNumber;
     private Style croutonStyle;
+    private BackgroundFun mBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +63,18 @@ public class MainActivity extends MidWorxActivity {
         mBoxesContainer = (BoxesContainer) findViewById(R.id.words_boxes_layout);
         mScoreText = (TextView) findViewById(R.id.score_txt);
         mTimeText = (TextView) findViewById(R.id.time_txt);
+        mLevelText = (TextView) findViewById(R.id.level_txt);
+        mBackground = (BackgroundFun) findViewById(R.id.bg);
 
         startNewGame();
     }
 
     private void startNewGame() {
         mBoxesContainer.clear();
+
         mGameNumber++;
+        mLevelText.setText("Level: " + mGameNumber);
+        mBackground.increaseSpeed();
 
         //dummy data
         List<String> words = null;

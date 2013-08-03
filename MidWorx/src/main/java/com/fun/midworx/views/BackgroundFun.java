@@ -23,9 +23,20 @@ public class BackgroundFun extends View {
     private int tilesX;
     private int tilesY;
 
+    private float mMovementOffset;
+    private final static int INVALIDATE_DELAY = 100;
+
     public BackgroundFun(Context context) {
         super(context);
         loadImage();
+    }
+
+    public void initiateSpeed() {
+        mMovementOffset = 1.5f;
+    }
+
+    public void increaseSpeed() {
+        mMovementOffset *= 1.5;
     }
 
     public BackgroundFun(Context context, AttributeSet attrs) {
@@ -42,6 +53,8 @@ public class BackgroundFun extends View {
         cow = BitmapFactory.decodeResource(getResources(), R.drawable.peacock_blues_5);
         tilesX = tilesY = 0;
         scrollX = 0.0f;
+
+        initiateSpeed();
 
         getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
@@ -63,11 +76,11 @@ public class BackgroundFun extends View {
         super.onDraw(canvas);
         int w = cow.getWidth();
         int h = cow.getHeight();
-        scrollX += 4.25;
+        scrollX += mMovementOffset;
         while (scrollX > cow.getWidth()) scrollX -= cow.getWidth();
         for (int x = 0; x < tilesX; x++)
             for (int y = 0; y < tilesY; y++)
                 canvas.drawBitmap(cow, x*w-scrollX, y*h, new Paint());
-        postInvalidateDelayed(20);
+        postInvalidateDelayed(INVALIDATE_DELAY);
     }
 }
