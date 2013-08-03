@@ -10,7 +10,6 @@ apply plugin: 'android'
 
 dependencies {
     compile files('libs/android-support-v4.jar')
-    compile project(':libraries:crouton')
 }
 
 android {

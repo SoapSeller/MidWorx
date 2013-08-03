@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.fun.midworx.com.fun.midworx.crouton.Configuration;
-import com.fun.midworx.com.fun.midworx.crouton.Style;
-import com.fun.midworx.com.fun.midworx.views.BoxesContainer;
-import com.fun.midworx.com.fun.midworx.views.LetterOrganizer;
-import com.fun.midworx.com.fun.midworx.views.ScoreManager;
+import com.fun.midworx.crouton.Configuration;
+import com.fun.midworx.crouton.Crouton;
+import com.fun.midworx.crouton.Style;
+import com.fun.midworx.views.BoxesContainer;
+import com.fun.midworx.views.LetterOrganizer;
+import com.fun.midworx.views.ScoreManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -167,7 +168,7 @@ public class MainActivity extends MidWorxActivity {
     private void updateScore(String word) {
         int earnedPoints = mScoreManager.guessedWord(word, mGameNumber);
         mScoreText.setText("Score: " + mScoreManager.getSessionScore());
-        com.fun.midworx.com.fun.midworx.crouton.Crouton.makeText(this, earnedPoints + " points!!!", croutonStyle).show();
+        Crouton.makeText(this, earnedPoints + " points!!!", croutonStyle).show();
     }
 
     private String getCurrentGuess() {

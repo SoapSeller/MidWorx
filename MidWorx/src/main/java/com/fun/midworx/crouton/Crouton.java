@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.fun.midworx.com.fun.midworx.crouton;
+package com.fun.midworx.crouton;
 
 import android.app.Activity;
 import android.content.Context;
@@ -46,7 +46,7 @@ import android.widget.TextView;
  * {@link android.widget.Toast}, but better.
  * <p/>
  * <b>Important: </b>
- * Call {@link com.fun.midworx.com.fun.midworx.external.Crouton#clearCroutonsForActivity(android.app.Activity)} within
+ * Call {@link com.fun.midworx.external.Crouton#clearCroutonsForActivity(android.app.Activity)} within
  * {@link android.app.Activity#onDestroy()} to avoid {@link android.content.Context} leaks.
  */
 public final class Crouton {
@@ -67,15 +67,15 @@ public final class Crouton {
   private LifecycleCallback lifecycleCallback = null;
 
   /**
-   * Creates the {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * Creates the {@link com.fun.midworx.external.Crouton}.
    *
    * @param activity
-   *   The {@link android.app.Activity} that the {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be attached
+   *   The {@link android.app.Activity} that the {@link com.fun.midworx.external.Crouton} should be attached
    *   to.
    * @param text
    *   The text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    */
   private Crouton(Activity activity, CharSequence text, Style style) {
     if ((activity == null) || (text == null) || (style == null)) {
@@ -90,16 +90,16 @@ public final class Crouton {
   }
 
   /**
-   * Creates the {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * Creates the {@link com.fun.midworx.external.Crouton}.
    *
    * @param activity
    *   The {@link android.app.Activity} that represents the context in which the Crouton should exist.
    * @param text
    *   The text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    * @param viewGroup
-   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    */
   private Crouton(Activity activity, CharSequence text, Style style, ViewGroup viewGroup) {
     if ((activity == null) || (text == null) || (style == null)) {
@@ -114,10 +114,10 @@ public final class Crouton {
   }
 
   /**
-   * Creates the {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * Creates the {@link com.fun.midworx.external.Crouton}.
    *
    * @param activity
-   *   The {@link android.app.Activity} that the {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be attached
+   *   The {@link android.app.Activity} that the {@link com.fun.midworx.external.Crouton} should be attached
    *   to.
    * @param customView
    *   The custom {@link android.view.View} to display
@@ -135,30 +135,30 @@ public final class Crouton {
   }
 
   /**
-   * Creates the {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * Creates the {@link com.fun.midworx.external.Crouton}.
    *
    * @param activity
    *   The {@link android.app.Activity} that represents the context in which the Crouton should exist.
    * @param customView
    *   The custom {@link android.view.View} to display
    * @param viewGroup
-   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    */
   private Crouton(Activity activity, View customView, ViewGroup viewGroup) {
     this(activity, customView, viewGroup, Configuration.DEFAULT);
   }
 
   /**
-   * Creates the {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * Creates the {@link com.fun.midworx.external.Crouton}.
    *
    * @param activity
    *   The {@link android.app.Activity} that represents the context in which the Crouton should exist.
    * @param customView
    *   The custom {@link android.view.View} to display
    * @param viewGroup
-   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    * @param configuration
-   *   The {@link Configuration} for this {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   *   The {@link Configuration} for this {@link com.fun.midworx.external.Crouton}.
    */
   private Crouton(final Activity activity, final View customView, final ViewGroup viewGroup,
                   final Configuration configuration) {
@@ -175,25 +175,25 @@ public final class Crouton {
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text and style for a given
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text and style for a given
    * activity.
    *
    * @param activity
-   *   The {@link android.app.Activity} that the {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be attached
+   *   The {@link android.app.Activity} that the {@link com.fun.midworx.external.Crouton} should be attached
    *   to.
    * @param text
    *   The text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    *
-   * @return The created {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * @return The created {@link com.fun.midworx.external.Crouton}.
    */
   public static Crouton makeText(Activity activity, CharSequence text, Style style) {
     return new Crouton(activity, text, style);
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text and style for a given
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text and style for a given
    * activity.
    *
    * @param activity
@@ -201,18 +201,18 @@ public final class Crouton {
    * @param text
    *   The text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    * @param viewGroup
-   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    *
-   * @return The created {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * @return The created {@link com.fun.midworx.external.Crouton}.
    */
   public static Crouton makeText(Activity activity, CharSequence text, Style style, ViewGroup viewGroup) {
     return new Crouton(activity, text, style, viewGroup);
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text and style for a given
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text and style for a given
    * activity.
    *
    * @param activity
@@ -220,11 +220,11 @@ public final class Crouton {
    * @param text
    *   The text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    * @param viewGroupResId
-   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    *
-   * @return The created {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * @return The created {@link com.fun.midworx.external.Crouton}.
    */
   public static Crouton makeText(Activity activity, CharSequence text, Style style, int viewGroupResId) {
     return new Crouton(activity, text, style, (ViewGroup) activity.findViewById(viewGroupResId));
@@ -232,25 +232,25 @@ public final class Crouton {
 
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text-resource and style for a given
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text-resource and style for a given
    * activity.
    *
    * @param activity
-   *   The {@link android.app.Activity} that the {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be attached
+   *   The {@link android.app.Activity} that the {@link com.fun.midworx.external.Crouton} should be attached
    *   to.
    * @param textResourceId
    *   The resource id of the text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    *
-   * @return The created {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * @return The created {@link com.fun.midworx.external.Crouton}.
    */
   public static Crouton makeText(Activity activity, int textResourceId, Style style) {
     return makeText(activity, activity.getString(textResourceId), style);
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text-resource and style for a given
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text-resource and style for a given
    * activity.
    *
    * @param activity
@@ -258,18 +258,18 @@ public final class Crouton {
    * @param textResourceId
    *   The resource id of the text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    * @param viewGroup
-   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    *
-   * @return The created {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * @return The created {@link com.fun.midworx.external.Crouton}.
    */
   public static Crouton makeText(Activity activity, int textResourceId, Style style, ViewGroup viewGroup) {
     return makeText(activity, activity.getString(textResourceId), style, viewGroup);
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text-resource and style for a given
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text-resource and style for a given
    * activity.
    *
    * @param activity
@@ -277,11 +277,11 @@ public final class Crouton {
    * @param textResourceId
    *   The resource id of the text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    * @param viewGroupResId
-   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    *
-   * @return The created {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * @return The created {@link com.fun.midworx.external.Crouton}.
    */
   public static Crouton makeText(Activity activity, int textResourceId, Style style, int viewGroupResId) {
     return makeText(activity, activity.getString(textResourceId), style,
@@ -290,23 +290,23 @@ public final class Crouton {
 
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text-resource and style for a given
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text-resource and style for a given
    * activity.
    *
    * @param activity
-   *   The {@link android.app.Activity} that the {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be attached
+   *   The {@link android.app.Activity} that the {@link com.fun.midworx.external.Crouton} should be attached
    *   to.
    * @param customView
    *   The custom {@link android.view.View} to display
    *
-   * @return The created {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * @return The created {@link com.fun.midworx.external.Crouton}.
    */
   public static Crouton make(Activity activity, View customView) {
     return new Crouton(activity, customView);
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text-resource and style for a given
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text-resource and style for a given
    * activity.
    *
    * @param activity
@@ -314,16 +314,16 @@ public final class Crouton {
    * @param customView
    *   The custom {@link android.view.View} to display
    * @param viewGroup
-   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    *
-   * @return The created {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * @return The created {@link com.fun.midworx.external.Crouton}.
    */
   public static Crouton make(Activity activity, View customView, ViewGroup viewGroup) {
     return new Crouton(activity, customView, viewGroup);
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text-resource and style for a given
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text-resource and style for a given
    * activity.
    *
    * @param activity
@@ -331,16 +331,16 @@ public final class Crouton {
    * @param customView
    *   The custom {@link android.view.View} to display
    * @param viewGroupResId
-   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    *
-   * @return The created {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * @return The created {@link com.fun.midworx.external.Crouton}.
    */
   public static Crouton make(Activity activity, View customView, int viewGroupResId) {
     return new Crouton(activity, customView, (ViewGroup) activity.findViewById(viewGroupResId));
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text-resource and style for a given
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text-resource and style for a given
    * activity.
    *
    * @param activity
@@ -348,11 +348,11 @@ public final class Crouton {
    * @param customView
    *   The custom {@link android.view.View} to display
    * @param viewGroupResId
-   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    * @param configuration
    *   The configuration for this crouton.
    *
-   * @return The created {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * @return The created {@link com.fun.midworx.external.Crouton}.
    */
   public static Crouton make(Activity activity, View customView, int viewGroupResId,
                              final Configuration configuration) {
@@ -360,23 +360,23 @@ public final class Crouton {
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text and style for a given activity
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text and style for a given activity
    * and displays it directly.
    *
    * @param activity
-   *   The {@link android.app.Activity} that the {@link com.fun.midworx.com.fun.midworx.external.Crouton} should
+   *   The {@link android.app.Activity} that the {@link com.fun.midworx.external.Crouton} should
    *   be attached to.
    * @param text
    *   The text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    */
   public static void showText(Activity activity, CharSequence text, Style style) {
     makeText(activity, text, style).show();
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text and style for a given activity
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text and style for a given activity
    * and displays it directly.
    *
    * @param activity
@@ -384,16 +384,16 @@ public final class Crouton {
    * @param text
    *   The text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    * @param viewGroup
-   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    */
   public static void showText(Activity activity, CharSequence text, Style style, ViewGroup viewGroup) {
     makeText(activity, text, style, viewGroup).show();
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text and style for a given activity
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text and style for a given activity
    * and displays it directly.
    *
    * @param activity
@@ -401,16 +401,16 @@ public final class Crouton {
    * @param text
    *   The text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    * @param viewGroupResId
-   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    */
   public static void showText(Activity activity, CharSequence text, Style style, int viewGroupResId) {
     makeText(activity, text, style, (ViewGroup) activity.findViewById(viewGroupResId)).show();
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text and style for a given activity
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text and style for a given activity
    * and displays it directly.
    *
    * @param activity
@@ -418,9 +418,9 @@ public final class Crouton {
    * @param text
    *   The text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    * @param viewGroupResId
-   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    * @param configuration
    *   The configuration for this Crouton.
    */
@@ -432,11 +432,11 @@ public final class Crouton {
 
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text and style for a given activity
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text and style for a given activity
    * and displays it directly.
    *
    * @param activity
-   *   The {@link android.app.Activity} that the {@link com.fun.midworx.com.fun.midworx.external.Crouton} should
+   *   The {@link android.app.Activity} that the {@link com.fun.midworx.external.Crouton} should
    *   be attached to.
    * @param customView
    *   The custom {@link android.view.View} to display
@@ -446,7 +446,7 @@ public final class Crouton {
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text and style for a given activity
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text and style for a given activity
    * and displays it directly.
    *
    * @param activity
@@ -454,14 +454,14 @@ public final class Crouton {
    * @param customView
    *   The custom {@link android.view.View} to display
    * @param viewGroup
-   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    */
   public static void show(Activity activity, View customView, ViewGroup viewGroup) {
     make(activity, customView, viewGroup).show();
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text and style for a given activity
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text and style for a given activity
    * and displays it directly.
    *
    * @param activity
@@ -469,30 +469,30 @@ public final class Crouton {
    * @param customView
    *   The custom {@link android.view.View} to display
    * @param viewGroupResId
-   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    */
   public static void show(Activity activity, View customView, int viewGroupResId) {
     make(activity, customView, viewGroupResId).show();
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text-resource and style for a given
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text-resource and style for a given
    * activity and displays it directly.
    *
    * @param activity
-   *   The {@link android.app.Activity} that the {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be attached
+   *   The {@link android.app.Activity} that the {@link com.fun.midworx.external.Crouton} should be attached
    *   to.
    * @param textResourceId
    *   The resource id of the text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    */
   public static void showText(Activity activity, int textResourceId, Style style) {
     showText(activity, activity.getString(textResourceId), style);
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text-resource and style for a given
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text-resource and style for a given
    * activity and displays it directly.
    *
    * @param activity
@@ -500,16 +500,16 @@ public final class Crouton {
    * @param textResourceId
    *   The resource id of the text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    * @param viewGroup
-   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    */
   public static void showText(Activity activity, int textResourceId, Style style, ViewGroup viewGroup) {
     showText(activity, activity.getString(textResourceId), style, viewGroup);
   }
 
   /**
-   * Creates a {@link com.fun.midworx.com.fun.midworx.external.Crouton} with provided text-resource and style for a given
+   * Creates a {@link com.fun.midworx.external.Crouton} with provided text-resource and style for a given
    * activity and displays it directly.
    *
    * @param activity
@@ -517,26 +517,26 @@ public final class Crouton {
    * @param textResourceId
    *   The resource id of the text you want to display.
    * @param style
-   *   The style that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be created with.
+   *   The style that this {@link com.fun.midworx.external.Crouton} should be created with.
    * @param viewGroupResId
-   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.com.fun.midworx.external.Crouton} should be added to.
+   *   The resource id of the {@link android.view.ViewGroup} that this {@link com.fun.midworx.external.Crouton} should be added to.
    */
   public static void showText(Activity activity, int textResourceId, Style style, int viewGroupResId) {
     showText(activity, activity.getString(textResourceId), style, viewGroupResId);
   }
 
   /**
-   * Allows hiding of a previously displayed {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * Allows hiding of a previously displayed {@link com.fun.midworx.external.Crouton}.
    *
    * @param crouton
-   *   The {@link com.fun.midworx.com.fun.midworx.external.Crouton} you want to hide.
+   *   The {@link com.fun.midworx.external.Crouton} you want to hide.
    */
   public static void hide(Crouton crouton) {
     Manager.getInstance().removeCrouton(crouton);
   }
 
   /**
-   * Cancels all queued {@link com.fun.midworx.com.fun.midworx.external.Crouton}s. If there is a {@link com.fun.midworx.com.fun.midworx.external.Crouton}
+   * Cancels all queued {@link com.fun.midworx.external.Crouton}s. If there is a {@link com.fun.midworx.external.Crouton}
    * displayed currently, it will be the last one displayed.
    */
   public static void cancelAllCroutons() {
@@ -554,15 +554,15 @@ public final class Crouton {
     Manager.getInstance().clearCroutonsForActivity(activity);
   }
 
-  /** Cancels a {@link com.fun.midworx.com.fun.midworx.external.Crouton} immediately. */
+  /** Cancels a {@link com.fun.midworx.external.Crouton} immediately. */
   public void cancel() {
     Manager manager = Manager.getInstance();
     manager.removeCroutonImmediately(this);
   }
 
   /**
-   * Displays the {@link com.fun.midworx.com.fun.midworx.external.Crouton}. If there's another {@link com.fun.midworx.com.fun.midworx.external.Crouton} visible at
-   * the time, this {@link com.fun.midworx.com.fun.midworx.external.Crouton} will be displayed afterwards.
+   * Displays the {@link com.fun.midworx.external.Crouton}. If there's another {@link com.fun.midworx.external.Crouton} visible at
+   * the time, this {@link com.fun.midworx.external.Crouton} will be displayed afterwards.
    */
   public void show() {
     Manager.getInstance().add(this);
@@ -602,12 +602,12 @@ public final class Crouton {
   }
 
   /**
-   * Allows setting of an {@link android.view.View.OnClickListener} directly to a {@link com.fun.midworx.com.fun.midworx.external.Crouton} without having to use a custom view.
+   * Allows setting of an {@link android.view.View.OnClickListener} directly to a {@link com.fun.midworx.external.Crouton} without having to use a custom view.
    *
    * @param onClickListener
    *   The {@link android.view.View.OnClickListener} to set.
    *
-   * @return this {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * @return this {@link com.fun.midworx.external.Crouton}.
    */
   public Crouton setOnClickListener(OnClickListener onClickListener) {
     this.onClickListener = onClickListener;
@@ -615,12 +615,12 @@ public final class Crouton {
   }
 
   /**
-   * Set the {@link Configuration} on this {@link com.fun.midworx.com.fun.midworx.external.Crouton}, prior to showing it.
+   * Set the {@link Configuration} on this {@link com.fun.midworx.external.Crouton}, prior to showing it.
    *
    * @param configuration
    *   a {@link Configuration} built using the {@link Configuration.Builder}.
    *
-   * @return this {@link com.fun.midworx.com.fun.midworx.external.Crouton}.
+   * @return this {@link com.fun.midworx.external.Crouton}.
    */
   public Crouton setConfiguration(final Configuration configuration) {
     this.configuration = configuration;
@@ -673,7 +673,7 @@ public final class Crouton {
   //////////////////////////////////////////////////////////////////////////////////////
 
   /**
-   * @return <code>true</code> if the {@link com.fun.midworx.com.fun.midworx.external.Crouton} is being displayed, else
+   * @return <code>true</code> if the {@link com.fun.midworx.external.Crouton} is being displayed, else
    *         <code>false</code>.
    */
   boolean isShowing() {
@@ -688,17 +688,17 @@ public final class Crouton {
     return (null != customView) && (null != customView.getParent());
   }
 
-  /** Removes the activity reference this {@link com.fun.midworx.com.fun.midworx.external.Crouton} is holding */
+  /** Removes the activity reference this {@link com.fun.midworx.external.Crouton} is holding */
   void detachActivity() {
     activity = null;
   }
 
-  /** Removes the viewGroup reference this {@link com.fun.midworx.com.fun.midworx.external.Crouton} is holding */
+  /** Removes the viewGroup reference this {@link com.fun.midworx.external.Crouton} is holding */
   void detachViewGroup() {
     viewGroup = null;
   }
 
-  /** Removes the lifecycleCallback reference this {@link com.fun.midworx.com.fun.midworx.external.Crouton} is holding */
+  /** Removes the lifecycleCallback reference this {@link com.fun.midworx.external.Crouton} is holding */
   void detachLifecycleCallback() {
     lifecycleCallback = null;
   }

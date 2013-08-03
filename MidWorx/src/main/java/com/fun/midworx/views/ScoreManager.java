@@ -1,4 +1,4 @@
-package com.fun.midworx.com.fun.midworx.views;
+package com.fun.midworx.views;
 
 /**
  * Created by Rotem on 03/08/13.

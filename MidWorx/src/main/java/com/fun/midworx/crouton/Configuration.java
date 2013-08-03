@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fun.midworx.com.fun.midworx.crouton;
+package com.fun.midworx.crouton;
 
 /**
  * Allows configuring a {@link Crouton}s behaviour aside from the actual view,
@@ -38,7 +38,7 @@ public class Configuration {
   /** The default long display duration of a {@link Crouton}. */
   public static final int DURATION_LONG = 5000;
 
-  /** The default {@link com.fun.midworx.com.fun.midworx.external.Configuration} of a {@link Crouton}. */
+  /** The default {@link com.fun.midworx.external.Configuration} of a {@link Crouton}. */
   public static final Configuration DEFAULT;
 
   static {
@@ -58,7 +58,7 @@ public class Configuration {
     this.outAnimationResId = builder.outAnimationResId;
   }
 
-  /** Creates a {@link com.fun.midworx.com.fun.midworx.external.Configuration.Builder} to build a {@link com.fun.midworx.com.fun.midworx.external.Configuration} upon. */
+  /** Creates a {@link com.fun.midworx.external.Configuration.Builder} to build a {@link com.fun.midworx.external.Configuration} upon. */
   public static class Builder {
     private int durationInMilliseconds = DURATION_SHORT;
     private int inAnimationResId = 0;
@@ -71,7 +71,7 @@ public class Configuration {
      *   The durationInMilliseconds the crouton will be displayed
      *   {@link Crouton} in milliseconds.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Configuration.Builder}.
+     * @return the {@link com.fun.midworx.external.Configuration.Builder}.
      */
     public Builder setDuration(final int duration) {
       this.durationInMilliseconds = duration;
@@ -86,7 +86,7 @@ public class Configuration {
      *   The resource identifier for the animation that's being shown
      *   when the {@link Crouton} is going to be displayed.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Configuration.Builder}.
+     * @return the {@link com.fun.midworx.external.Configuration.Builder}.
      */
     public Builder setInAnimation(final int inAnimationResId) {
       this.inAnimationResId = inAnimationResId;
@@ -101,7 +101,7 @@ public class Configuration {
      *   The resource identifier for the animation that's being shown
      *   when the {@link Crouton} is going to be removed.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Configuration.Builder}.
+     * @return the {@link com.fun.midworx.external.Configuration.Builder}.
      */
     public Builder setOutAnimation(final int outAnimationResId) {
       this.outAnimationResId = outAnimationResId;
@@ -110,9 +110,9 @@ public class Configuration {
     }
 
     /**
-     * Builds the {@link com.fun.midworx.com.fun.midworx.external.Configuration}.
+     * Builds the {@link com.fun.midworx.external.Configuration}.
      *
-     * @return The built {@link com.fun.midworx.com.fun.midworx.external.Configuration}.
+     * @return The built {@link com.fun.midworx.external.Configuration}.
      */
     public Configuration build() {
       return new Configuration(this);

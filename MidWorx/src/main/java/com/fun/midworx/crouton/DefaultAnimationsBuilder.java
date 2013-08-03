@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.fun.midworx.com.fun.midworx.crouton;
+package com.fun.midworx.crouton;
 
 import android.view.View;
 import android.view.animation.Animation;

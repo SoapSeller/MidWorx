@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fun.midworx.com.fun.midworx.crouton;
+package com.fun.midworx.crouton;
 
 /** Provides callback methods on major lifecycle events of a {@link Crouton}. */
 public interface LifecycleCallback {

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.fun.midworx.com.fun.midworx.crouton;
+package com.fun.midworx.crouton;
 
 import android.app.Activity;
 import android.content.Context;
@@ -53,7 +53,7 @@ final class Manager extends Handler {
     croutonQueue = new LinkedBlockingQueue<Crouton>();
   }
 
-  /** @return The currently used instance of the {@link com.fun.midworx.com.fun.midworx.external.Manager}. */
+  /** @return The currently used instance of the {@link com.fun.midworx.external.Manager}. */
   static synchronized Manager getInstance() {
     if (null == INSTANCE) {
       INSTANCE = new Manager();

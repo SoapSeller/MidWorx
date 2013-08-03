@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.fun.midworx.com.fun.midworx.crouton;
+package com.fun.midworx.crouton;
 
 import android.graphics.drawable.Drawable;
 import android.view.Gravity;
@@ -50,7 +50,7 @@ public class Style {
   }
 
   /**
-   * The {@link Configuration} for this {@link com.fun.midworx.com.fun.midworx.external.Style}.
+   * The {@link Configuration} for this {@link com.fun.midworx.external.Style}.
    * It can be overridden via {@link Crouton#setConfiguration(Configuration)}.
    */
   final Configuration configuration;
@@ -163,7 +163,7 @@ public class Style {
     this.backgroundColorValue = builder.backgroundColorValue;
   }
 
-  /** Builder for the {@link com.fun.midworx.com.fun.midworx.external.Style} object. */
+  /** Builder for the {@link com.fun.midworx.external.Style} object. */
   public static class Builder {
     private Configuration configuration;
     private int backgroundColorValue;
@@ -188,7 +188,7 @@ public class Style {
     private int paddingInPixels;
     private int paddingDimensionResId;
 
-    /** Creates a {@link com.fun.midworx.com.fun.midworx.external.Style.Builder} to build a {@link com.fun.midworx.com.fun.midworx.external.Style} upon. */
+    /** Creates a {@link com.fun.midworx.external.Style.Builder} to build a {@link com.fun.midworx.external.Style} upon. */
     public Builder() {
       configuration = Configuration.DEFAULT;
       paddingInPixels = 10;
@@ -206,10 +206,10 @@ public class Style {
     }
 
     /**
-     * Creates a {@link com.fun.midworx.com.fun.midworx.external.Style.Builder} to build a {@link com.fun.midworx.com.fun.midworx.external.Style} upon.
+     * Creates a {@link com.fun.midworx.external.Style.Builder} to build a {@link com.fun.midworx.external.Style} upon.
      *
      * @param baseStyle
-     *   The base {@link com.fun.midworx.com.fun.midworx.external.Style} to use for this {@link com.fun.midworx.com.fun.midworx.external.Style}.
+     *   The base {@link com.fun.midworx.external.Style} to use for this {@link com.fun.midworx.external.Style}.
      */
     public Builder(final Style baseStyle) {
       configuration = baseStyle.configuration;
@@ -241,7 +241,7 @@ public class Style {
      * @param configuration
      *   The {@link Configuration}.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Style.Builder}.
+     * @return the {@link com.fun.midworx.external.Style.Builder}.
      */
     public Builder setConfiguration(Configuration configuration) {
       this.configuration = configuration;
@@ -254,7 +254,7 @@ public class Style {
      * @param backgroundColorResourceId
      *   The backgroundColorResourceId's resource id.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Style.Builder}.
+     * @return the {@link com.fun.midworx.external.Style.Builder}.
      */
     public Builder setBackgroundColor(int backgroundColorResourceId) {
       this.backgroundColorResourceId = backgroundColorResourceId;
@@ -268,7 +268,7 @@ public class Style {
      * @param backgroundColorValue
      *   The backgroundColorResourceValue's e.g. 0xffff4444;
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Style.Builder}.
+     * @return the {@link com.fun.midworx.external.Style.Builder}.
      */
     public Builder setBackgroundColorValue(int backgroundColorValue) {
       this.backgroundColorValue = backgroundColorValue;
@@ -281,7 +281,7 @@ public class Style {
      * @param backgroundDrawableResourceId
      *   Resource ID of a backgroundDrawableResourceId image drawable.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Style.Builder}.
+     * @return the {@link com.fun.midworx.external.Style.Builder}.
      */
     public Builder setBackgroundDrawable(int backgroundDrawableResourceId) {
       this.backgroundDrawableResourceId = backgroundDrawableResourceId;
@@ -297,7 +297,7 @@ public class Style {
      *   {@link android.view.ViewGroup.LayoutParams#MATCH_PARENT} or
      *   {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT}.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Style.Builder}.
+     * @return the {@link com.fun.midworx.external.Style.Builder}.
      */
     public Builder setHeight(int height) {
       this.heightInPixels = height;
@@ -311,7 +311,7 @@ public class Style {
      * @param heightDimensionResId
      *   Resource ID of a dimension for the height of the {@link Crouton}.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Style.Builder}.
+     * @return the {@link com.fun.midworx.external.Style.Builder}.
      */
     public Builder setHeightDimensionResId(int heightDimensionResId) {
       this.heightDimensionResId = heightDimensionResId;
@@ -327,7 +327,7 @@ public class Style {
      *   {@link android.view.ViewGroup.LayoutParams#MATCH_PARENT} or
      *   {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT}.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Style.Builder}.
+     * @return the {@link com.fun.midworx.external.Style.Builder}.
      */
     public Builder setWidth(int width) {
       this.widthInPixels = width;
@@ -341,7 +341,7 @@ public class Style {
      * @param widthDimensionResId
      *   Resource ID of a dimension for the width of the {@link Crouton}.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Style.Builder}.
+     * @return the {@link com.fun.midworx.external.Style.Builder}.
      */
     public Builder setWidthDimensionResId(int widthDimensionResId) {
       this.widthDimensionResId = widthDimensionResId;
@@ -356,7 +356,7 @@ public class Style {
      *   <code>true</code> if you want the backgroundResourceId to be
      *   tiled, else <code>false</code>.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Style.Builder}.
+     * @return the {@link com.fun.midworx.external.Style.Builder}.
      */
     public Builder setTileEnabled(boolean isTileEnabled) {
       this.isTileEnabled = isTileEnabled;
@@ -370,7 +370,7 @@ public class Style {
      * @param textColor
      *   The resource id of the text colorResourceId.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Style.Builder}.
+     * @return the {@link com.fun.midworx.external.Style.Builder}.
      */
     public Builder setTextColor(int textColor) {
       this.textColorResourceId = textColor;
@@ -384,7 +384,7 @@ public class Style {
      * @param gravity
      *   The text's gravity as provided by {@link android.view.Gravity}.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Style.Builder}.
+     * @return the {@link com.fun.midworx.external.Style.Builder}.
      */
     public Builder setGravity(int gravity) {
       this.gravity = gravity;
@@ -398,7 +398,7 @@ public class Style {
      * @param imageDrawable
      *   An additional image to display in the {@link Crouton}.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Style.Builder}.
+     * @return the {@link com.fun.midworx.external.Style.Builder}.
      */
     public Builder setImageDrawable(Drawable imageDrawable) {
       this.imageDrawable = imageDrawable;
@@ -412,7 +412,7 @@ public class Style {
      * @param imageResId
      *   An additional image to display in the {@link Crouton}.
      *
-     * @return the {@link com.fun.midworx.com.fun.midworx.external.Style.Builder}.
+     * @return the {@link com.fun.midworx.external.Style.Builder}.
      */
     public Builder setImageResource(int imageResId) {
       this.imageResId = imageResId;
@@ -474,7 +474,7 @@ public class Style {
       return this;
     }
 
-    /** @return a configured {@link com.fun.midworx.com.fun.midworx.external.Style} object. */
+    /** @return a configured {@link com.fun.midworx.external.Style} object. */
     public Style build() {
       return new Style(this);
     }

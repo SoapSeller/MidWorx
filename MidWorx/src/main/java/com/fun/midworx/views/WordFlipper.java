@@ -1,4 +1,4 @@
-package com.fun.midworx.com.fun.midworx.views;
+package com.fun.midworx.views;
 
 import android.annotation.TargetApi;
 import android.content.Context;
