@@ -40,7 +40,7 @@ public class BackgroundFun extends View {
 
     private void loadImage() {
         cow = BitmapFactory.decodeResource(getResources(), R.drawable.peacock_blues_5);
-        tilesX = tilesY = 0;
+        tilesX = tilesY = 1;
         scrollX = 0.0f;
 
         getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

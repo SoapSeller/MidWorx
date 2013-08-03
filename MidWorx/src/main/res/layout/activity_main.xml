@@ -4,78 +4,78 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-<com.fun.midworx.views.BackgroundFun
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+    <com.fun.midworx.views.BackgroundFun
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 
-<RelativeLayout android:layout_width="match_parent"
+    <RelativeLayout android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <com.fun.midworx.views.CustomTextView
-            android:id="@+id/score_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="#ffff"
-            android:gravity="center"
-            android:text="Score: 0" />
+        <com.fun.midworx.views.CustomTextView
+                android:id="@+id/score_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="#ffff"
+                android:gravity="center"
+                android:text="Score: 0" />
 
 
-    <com.fun.midworx.views.CustomTextView
-            android:layout_below="@+id/score_txt"
-            android:id="@+id/time_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24dp"
-            android:layout_marginLeft="20dp"
-            android:gravity="center"
-            android:textColor="#ffff"
-            android:text="Time: 113" />
+        <com.fun.midworx.views.CustomTextView
+                android:layout_below="@+id/score_txt"
+                android:id="@+id/time_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:textColor="#ffff"
+                android:text="Time: 113" />
 
-    <include layout="@layout/letters_organizer"
-             android:id="@+id/letters_organizer"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_above="@+id/guess_btn" />
+        <include layout="@layout/letters_organizer"
+                 android:id="@+id/letters_organizer"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_above="@+id/guess_btn" />
 
 
-    <com.fun.midworx.views.CustomTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:text="@string/guess"
-            android:gravity="center"
-            android:textColor="#fff"
-            android:textSize="30dp"
-            android:padding="15dp"
-            android:id="@+id/guess_btn" />
+        <com.fun.midworx.views.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:text="@string/guess"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:textSize="30dp"
+                android:padding="15dp"
+                android:id="@+id/guess_btn" />
 
-    <com.fun.midworx.views.CustomTextView
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:text="@string/next"
-            android:gravity="center"
-            android:textColor="#fff"
-            android:textSize="30dp"
-            android:padding="15dp"
-            android:id="@+id/next_btn" />
+        <com.fun.midworx.views.CustomTextView
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:text="@string/next"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:textSize="30dp"
+                android:padding="15dp"
+                android:id="@+id/next_btn" />
 
-    <com.fun.midworx.views.BoxesContainer
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="20dp"
-            android:id="@+id/words_boxes_layout"
-            android:layout_above="@+id/letters_organizer"
-            android:layout_below="@+id/time_txt" />
+        <com.fun.midworx.views.BoxesContainer
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:id="@+id/words_boxes_layout"
+                android:layout_above="@+id/letters_organizer"
+                android:layout_below="@+id/time_txt" />
 
 </RelativeLayout>
 

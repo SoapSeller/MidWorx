@@ -32,7 +32,8 @@ public class CustomTextView extends TextView {
 
     private void parseAttributes(Context context, AttributeSet attrs) {
         if (agency == null) {
-            agency = Typeface.createFromAsset(context.getAssets(), "AGENCYR.TTF");
+            agency = isInEditMode() ? Typeface.SANS_SERIF :
+                     Typeface.createFromAsset(context.getAssets(), "AGENCYR.TTF");
         }
 
 
