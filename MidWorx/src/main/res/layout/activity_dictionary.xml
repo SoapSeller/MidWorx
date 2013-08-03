@@ -13,6 +13,15 @@
             android:id="@+id/wordText"
             android:layout_gravity="left|center_vertical"/>
 
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/relatedText"
+            android:textColor="@color/label"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_below="@+id/wordText"
+            android:layout_gravity="left|center_vertical"/>
+
     <!-- Image doesn't have to be shown every time, only if needed. -->
     <ImageView
             android:layout_width="188dp"
