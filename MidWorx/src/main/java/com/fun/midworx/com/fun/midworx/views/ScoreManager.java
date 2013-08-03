@@ -16,8 +16,10 @@ public class ScoreManager {
         return mSessionScore;
     }
 
-    public void guessedWord(String word, int gameNumber) {
-        mSessionScore += calculateWordScore(word, gameNumber);
+    public int guessedWord(String word, int gameNumber) {
+        int earnedPoints = calculateWordScore(word, gameNumber);
+        mSessionScore += earnedPoints;
+        return earnedPoints;
     }
 
     private int calculateWordScore(String word, int gameNumber) {

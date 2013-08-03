@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.fun.midworx.com.fun.midworx.crouton.Configuration;
+import com.fun.midworx.com.fun.midworx.crouton.Style;
 import com.fun.midworx.com.fun.midworx.views.BoxesContainer;
 import com.fun.midworx.com.fun.midworx.views.LetterOrganizer;
 import com.fun.midworx.com.fun.midworx.views.ScoreManager;
@@ -13,6 +15,7 @@ import com.fun.midworx.com.fun.midworx.views.ScoreManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainActivity extends MidWorxActivity {
     private static final int MAX_GAME_SECONDS = 20;
@@ -24,6 +27,7 @@ public class MainActivity extends MidWorxActivity {
     private Words mWords;
     private ScoreManager mScoreManager;
     private int mGameNumber;
+    private Style croutonStyle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,12 @@ public class MainActivity extends MidWorxActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        croutonStyle = new Style.Builder()
+                .setConfiguration(new Configuration.Builder()
+                        .setDuration(300)
+                        .build())
+                .build();
 
         mGameNumber = 0;
 
@@ -104,7 +114,7 @@ public class MainActivity extends MidWorxActivity {
                 mTimeText.setText("Time: " + mLeftSecs);
                 mLeftSecs--;
                 if (mLeftSecs >= 0)
-                    mTimeText.postDelayed(this,1000);
+                    mTimeText.postDelayed(this, 1000);
                 else
                     endGame(EndGameReason.TIMEOUT);
             }
@@ -155,13 +165,19 @@ public class MainActivity extends MidWorxActivity {
     }
 
     private void updateScore(String word) {
-        mScoreManager.guessedWord(word, mGameNumber);
+        int earnedPoints = mScoreManager.guessedWord(word, mGameNumber);
         mScoreText.setText("Score: " + mScoreManager.getSessionScore());
+        com.fun.midworx.com.fun.midworx.crouton.Crouton.makeText(this, earnedPoints + " points!!!", croutonStyle).show();
     }
 
     private String getCurrentGuess() {
 		return letterOrganizer.getCurrentGuessAndReset();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //Crouton.cancelAllCroutons();
+    }
 
 }
