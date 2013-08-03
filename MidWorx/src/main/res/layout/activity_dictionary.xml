@@ -24,8 +24,8 @@
 
     <!-- Image doesn't have to be shown every time, only if needed. -->
     <ImageView
-            android:layout_width="188dp"
-            android:layout_height="133dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/image"
             android:layout_gravity="right|center_vertical"
             android:layout_alignParentTop="true"
