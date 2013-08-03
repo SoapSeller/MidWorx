@@ -82,9 +82,12 @@ public class DictionaryActivity extends Activity {
             for (int i = 0; i < entries.length(); ++i) {
                 JSONObject entry = entries.getJSONObject(i);
                 if (entry.getString("type").equals("related")) {
-                    JSONObject term = entry.getJSONArray("terms").getJSONObject(0);
-                    if (term.getString("text").equals(word)) {
-                        related.add(term.getJSONArray("labels").getJSONObject(0).getString("text"));
+                    JSONArray termsArr = entry.getJSONArray("terms");
+                    for (int j = 0; j < termsArr.length(); ++j) {
+                        JSONObject term = termsArr.getJSONObject(j);
+                        if (term.getString("text").equals(word)) {
+                            related.add(term.getJSONArray("labels").getJSONObject(0).getString("text"));
+                        }
                     }
                 } else if (entry.getString("type").equals("meaning")) {
                     JSONObject term = entry.getJSONArray("terms").getJSONObject(0);
