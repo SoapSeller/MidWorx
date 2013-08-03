@@ -1,12 +1,8 @@
 package com.fun.midworx.com.fun.midworx.views;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.LinearLayout;
-
-import com.fun.midworx.DictionaryActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +19,11 @@ public class BoxesContainer extends LinearLayout {
         super(context, attrs);
         params = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(2, 0, 2, 0);
+    }
+
+    public void clear() {
+        removeAllViews();
+        mBoxes.clear();
     }
 
     public boolean guessWord(String word) {

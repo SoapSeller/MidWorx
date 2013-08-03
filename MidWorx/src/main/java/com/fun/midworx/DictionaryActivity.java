@@ -1,13 +1,14 @@
 package com.fun.midworx;
 
+import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageButton;
@@ -37,15 +38,13 @@ public class DictionaryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dictionary);
 
-        // TODO(mishas): Debugging needed:
-        //  plurals - not taken care of.
-        //  Abbreviation (for example: "cos").
         final String word = getIntent().getExtras().getString("word");
         new DefinitionGetter(word, this).execute();
     }
 
     static class HeadWord {
         final String text;
+        final List<String> related = new ArrayList<String>();
         final String phonetic;
         final Uri sound;
         final String label;
@@ -55,14 +54,16 @@ public class DictionaryActivity extends Activity {
             String text = word;
             String phonetic = "/" + word + "/";
             String sound = null;
-            String label = "";
+            String label = null;
             JSONArray terms = headword.getJSONArray("terms");
             for (int i = 0; i < terms.length(); ++i) {
                 JSONObject term = terms.getJSONObject(i);
                 if (term.getString("type").equals("text")) {
                     text = term.getString("text");
-                    JSONArray labels = term.getJSONArray("labels");
-                    label = labels.getJSONObject(0).getString("text");
+                    if (term.has("labels")) {
+                        JSONArray labels = term.getJSONArray("labels");
+                        label = labels.getJSONObject(0).getString("text");
+                    }
                 } else if (term.getString("type").equals("phonetic")) {
                     phonetic = term.getString("text");
                 } else if (term.getString("type").equals("sound")) {
@@ -72,22 +73,26 @@ public class DictionaryActivity extends Activity {
             JSONArray entries = headword.getJSONArray("entries");
             for (int i = 0; i < entries.length(); ++i) {
                 JSONObject entry = entries.getJSONObject(i);
-                if (!entry.getString("type").equals("meaning")) {
-                    continue;
-                }
-                JSONObject term = entry.getJSONArray("terms").getJSONObject(0);
-                List<String> examples = new ArrayList<String>();
-                if (entry.has("entries")) {
-                    JSONArray exampleEntries = entry.getJSONArray("entries");
-                    for (int j = 0; j < exampleEntries.length(); ++j) {
-                        JSONObject example = exampleEntries.getJSONObject(j);
-                        if (!example.getString("type").equals("example")) {
-                            continue;
-                        }
-                        examples.add(example.getJSONArray("terms").getJSONObject(0).getString("text"));
+                if (entry.getString("type").equals("related")) {
+                    JSONObject term = entry.getJSONArray("terms").getJSONObject(0);
+                    if (term.getString("text").equals(word)) {
+                        related.add(term.getJSONArray("labels").getJSONObject(0).getString("text"));
                     }
+                } else if (entry.getString("type").equals("meaning")) {
+                    JSONObject term = entry.getJSONArray("terms").getJSONObject(0);
+                    List<String> examples = new ArrayList<String>();
+                    if (entry.has("entries")) {
+                        JSONArray exampleEntries = entry.getJSONArray("entries");
+                        for (int j = 0; j < exampleEntries.length(); ++j) {
+                            JSONObject example = exampleEntries.getJSONObject(j);
+                            if (!example.getString("type").equals("example")) {
+                                continue;
+                            }
+                            examples.add(example.getJSONArray("terms").getJSONObject(0).getString("text"));
+                        }
+                    }
+                    meanings.add(Pair.create(term.getString("text"), examples));
                 }
-                meanings.add(Pair.create(term.getString("text"), examples));
             }
 
             this.text = text;
@@ -130,6 +135,7 @@ public class DictionaryActivity extends Activity {
         private final Context context;
 
         private TextView wordText;
+        private TextView relatedText;
         private TextView phoneticText;
         private ImageButton pronounceButton;
         private LinearLayout definitionsList;
@@ -139,6 +145,7 @@ public class DictionaryActivity extends Activity {
             this.context = context;
 
             this.wordText = (TextView) findViewById(R.id.wordText);
+            this.relatedText = (TextView) findViewById(R.id.relatedText);
             this.phoneticText = (TextView) findViewById(R.id.phoneticText);
             this.pronounceButton = (ImageButton) findViewById(R.id.pronounceButton);
             this.definitionsList = (LinearLayout) findViewById(R.id.definitionsList);
@@ -195,7 +202,11 @@ public class DictionaryActivity extends Activity {
                     }
                 }
 
-                wordText.setText(firstHeadword.text);
+                String titleText = this.word;
+                if (firstHeadword.related.isEmpty()) {
+                    titleText = firstHeadword.text;
+                }
+                wordText.setText(titleText);
                 phoneticText.setText(firstHeadword.phonetic);
                 final Uri sound = firstHeadword.sound;
                 pronounceButton.setOnClickListener(new View.OnClickListener() {
@@ -205,11 +216,21 @@ public class DictionaryActivity extends Activity {
                     }
                 });
 
+                Map<Pair<String, String>, List<String>> relatedDict = new HashMap<Pair<String, String>, List<String>>();
                 for (Map.Entry<String, List<HeadWord>> labelEntry : headwords.entrySet()) {
                     View definition = getLayoutInflater().inflate(R.layout.definition, null);
-                    ((TextView) definition.findViewById(R.id.label)).setText(labelEntry.getKey());
+                    TextView labelText = (TextView) definition.findViewById(R.id.label);
+                    labelText.setText(labelEntry.getKey());
+                    if (labelEntry.getKey() == null) {
+                        labelText.setVisibility(View.GONE);
+                    }
                     List<Pair<String, List<String>>> meanings = new ArrayList<Pair<String, List<String>>>();
                     for (HeadWord headword : labelEntry.getValue()) {
+                        Pair<String, String> relatedKey = Pair.create(headword.text, labelEntry.getKey());
+                        if (!relatedDict.containsKey(relatedKey)) {
+                            relatedDict.put(relatedKey, new ArrayList<String>());
+                        }
+                        relatedDict.get(relatedKey).addAll(headword.related);
                         meanings.add(headword.meanings.get(0));
                     }
                     if ((headwords.size() == 1) && (labelEntry.getValue().size() == 1) &&
@@ -223,6 +244,17 @@ public class DictionaryActivity extends Activity {
                     }
                     definitionsList.addView(definition);
                 }
+
+                StringBuilder relatedString = new StringBuilder();
+                for (Map.Entry<Pair<String, String>, List<String>> entry : relatedDict.entrySet()) {
+                    if (entry.getValue().isEmpty()) {
+                        continue;
+                    }
+                    relatedString.append(String.format("%1$s of <b>%2$s</b> (%3$s)<br/>",
+                            TextUtils.join(", ", entry.getValue()),
+                            entry.getKey().first, entry.getKey().second));
+                }
+                relatedText.setText(Html.fromHtml(relatedString.toString()));
             } catch (JSONException e) {
                 e.printStackTrace();
             };

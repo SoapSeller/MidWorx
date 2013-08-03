@@ -1,9 +1,11 @@
 package com.fun.midworx.com.fun.midworx.views;
 
 import android.view.View;
+import android.widget.Button;
+import android.widget.TableRow;
+
 import com.fun.midworx.IChooserStateChange;
 import com.fun.midworx.LetterChooserState;
-import android.widget.*;
 import com.fun.midworx.R;
 
 import java.util.List;
