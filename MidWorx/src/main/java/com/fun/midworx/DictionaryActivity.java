@@ -277,6 +277,8 @@ public class DictionaryActivity extends Activity {
                 "https://www.googleapis.com/freebase/v1/search?query=%1$s";
         private static final String FREEBASE_IMAGE_URL =
                 "https://www.googleapis.com/freebase/v1/image%1$s?maxwidth=%2$d&maxheight=%3$d";
+        private static final String WIKIPEDIA_REDIR_URL =
+                "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=%1$s&redirects";
 
         private final String word;
         private final Set<String> related;
@@ -324,18 +326,22 @@ public class DictionaryActivity extends Activity {
             return BitmapFactory.decodeStream(url.openStream());
         }
 
+        JSONObject readJson(String urlStr) throws IOException, JSONException {
+            URL url = new URL(urlStr);
+            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+            StringBuilder jsonBuilder = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                jsonBuilder.append(line);
+            }
+            br.close();
+            return new JSONObject(jsonBuilder.toString());
+        }
+
         @Override
         protected Bitmap doInBackground(Void... voids) {
             try {
-                URL url = new URL(String.format(FREEBASE_SEARCH_URL, this.word));
-                BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-                StringBuilder jsonBuilder = new StringBuilder();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    jsonBuilder.append(line);
-                }
-                br.close();
-                JSONObject json = new JSONObject(jsonBuilder.toString());
+                JSONObject json = readJson(String.format(FREEBASE_SEARCH_URL, this.word));
                 Map<String, String> idToMid = getIdToMid(json);
                 if (idToMid.containsKey(this.word)) {
                     return midToBitmap(idToMid.get(this.word));
@@ -343,6 +349,16 @@ public class DictionaryActivity extends Activity {
                 for (String potentialWord : this.related) {
                     if (idToMid.containsKey(potentialWord)) {
                         return midToBitmap(idToMid.get(potentialWord));
+                    }
+                }
+                JSONObject query = readJson(String.format(WIKIPEDIA_REDIR_URL, this.word)).getJSONObject("query");
+                if (query.has("redirects")) {
+                    JSONArray redirects = query.getJSONArray("redirects");
+                    for (int i = 0; i < redirects.length(); ++i) {
+                        String redirect = redirects.getJSONObject(i).getString("to").toLowerCase();
+                        if (idToMid.containsKey(redirect)) {
+                            return midToBitmap(idToMid.get(redirect));
+                        }
                     }
                 }
             } catch (MalformedURLException e) {
