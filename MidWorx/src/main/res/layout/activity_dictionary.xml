@@ -56,21 +56,7 @@
                   android:layout_below="@+id/phoneticText"
                   android:layout_alignParentLeft="true"/>
 
-    <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/languageSpinner"
-            android:layout_below="@+id/definitionsList"
-            android:layout_alignParentLeft="true"/>
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="פרה"
-            android:id="@+id/translation"
-            android:layout_alignTop="@+id/languageSpinner"
-            android:layout_alignParentRight="true"/>
-
+    <!--
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,5 +79,6 @@
             android:id="@+id/likeButton"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"/>
+            -->
 
 </RelativeLayout>
