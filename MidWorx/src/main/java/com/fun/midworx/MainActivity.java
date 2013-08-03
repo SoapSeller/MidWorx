@@ -102,7 +102,6 @@ public class MainActivity extends MidWorxActivity {
         letterOrganizer.show();
         findViewById(R.id.next_btn).setVisibility(View.GONE);
         findViewById(R.id.guess_btn).setVisibility(View.VISIBLE);
-
     }
 
     private enum EndGameReason {TIMEOUT,GUESS_ALL_WORDS}

@@ -2,6 +2,7 @@ package com.fun.midworx.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
@@ -47,6 +48,11 @@ public class CustomTextView extends TextView {
                 //singleton somewhere to avoid unnecessary copies
                 setTypeface(agency);
                 break;
+        }
+
+        boolean isButton = values.getBoolean(R.styleable.CustomTextView_is_button, false);
+        if (isButton) {
+            setBackgroundResource(R.drawable.rounded_bg);
         }
     }
 }
