@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+<com.fun.midworx.com.fun.midworx.views.BackgroundFun
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-        android:background="@drawable/disco">
+                android:layout_height="match_parent"/>
+
+
+<RelativeLayout android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <com.fun.midworx.com.fun.midworx.views.CustomTextView
             android:id="@+id/score_txt"
@@ -71,3 +78,5 @@
             android:layout_below="@+id/time_txt" />
 
 </RelativeLayout>
+
+</FrameLayout>
