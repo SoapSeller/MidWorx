@@ -1,11 +1,11 @@
 package com.fun.midworx;
 
+import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;

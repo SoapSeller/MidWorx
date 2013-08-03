@@ -1,14 +1,13 @@
 package com.fun.midworx;
 
-import android.os.Bundle;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.fun.midworx.com.fun.midworx.views.LetterOrganizer;
 import com.fun.midworx.com.fun.midworx.views.BoxesContainer;
+import com.fun.midworx.com.fun.midworx.views.LetterOrganizer;
 
 import java.io.IOException;
 import java.util.ArrayList;

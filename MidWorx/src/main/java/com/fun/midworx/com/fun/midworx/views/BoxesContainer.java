@@ -1,12 +1,8 @@
 package com.fun.midworx.com.fun.midworx.views;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.LinearLayout;
-
-import com.fun.midworx.DictionaryActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
