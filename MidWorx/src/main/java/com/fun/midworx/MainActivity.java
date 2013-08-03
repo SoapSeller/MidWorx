@@ -127,10 +127,10 @@ public class MainActivity extends MidWorxActivity {
 
             builder.setMessage("Your score is " + mScoreManager.getSessionScore()).setTitle("Game Timeout!");
             letterOrganizer.hide();
-            findViewById(R.id.next_btn).setVisibility(View.VISIBLE);
-            findViewById(R.id.guess_btn).setVisibility(View.INVISIBLE);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
+                    findViewById(R.id.next_btn).setVisibility(View.VISIBLE);
+                    findViewById(R.id.guess_btn).setVisibility(View.INVISIBLE);
                     mBoxesContainer.showUnguessed();
                 }
             });
