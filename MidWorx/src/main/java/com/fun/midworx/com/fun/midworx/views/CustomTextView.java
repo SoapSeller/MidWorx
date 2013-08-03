@@ -32,9 +32,12 @@ public class CustomTextView extends TextView {
 
     private void parseAttributes(Context context, AttributeSet attrs) {
         if (agency == null) {
-            agency = Typeface.createFromAsset(context.getAssets(), "AGENCYR.TTF");
+            if (isInEditMode()) {
+                agency = Typeface.DEFAULT;
+            } else {
+                agency = Typeface.createFromAsset(context.getAssets(), "AGENCYR.TTF");
+            }
         }
-
 
         TypedArray values = context.obtainStyledAttributes(attrs, R.styleable.CustomTextView);
 
