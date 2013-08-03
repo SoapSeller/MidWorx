@@ -2,16 +2,22 @@ package com.fun.midworx;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Pair;
+import android.view.Display;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -27,8 +33,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class DictionaryActivity extends Activity {
@@ -246,7 +254,9 @@ public class DictionaryActivity extends Activity {
                 }
 
                 StringBuilder relatedString = new StringBuilder();
+                Set<String> allRelated = new HashSet<String>();
                 for (Map.Entry<Pair<String, String>, List<String>> entry : relatedDict.entrySet()) {
+                    allRelated.addAll(entry.getValue());
                     if (entry.getValue().isEmpty()) {
                         continue;
                     }
@@ -254,10 +264,103 @@ public class DictionaryActivity extends Activity {
                             TextUtils.join(", ", entry.getValue()),
                             entry.getKey().first, entry.getKey().second));
                 }
+                new ImageGetter(this.word, allRelated).execute();
                 relatedText.setText(Html.fromHtml(relatedString.toString()));
             } catch (JSONException e) {
                 e.printStackTrace();
             };
+        }
+    }
+
+    class ImageGetter extends AsyncTask<Void, Void, Bitmap> {
+        private static final String FREEBASE_SEARCH_URL =
+                "https://www.googleapis.com/freebase/v1/search?query=%1$s";
+        private static final String FREEBASE_IMAGE_URL =
+                "https://www.googleapis.com/freebase/v1/image%1$s?maxwidth=%2$d&maxheight=%3$d";
+
+        private final String word;
+        private final Set<String> related;
+
+        private ImageView image;
+
+        public ImageGetter(String word, Set<String> related) {
+            this.word = word;
+            this.related = related;
+            this.image = (ImageView) findViewById(R.id.image);
+        }
+
+        Map<String, String> getIdToMid(JSONObject json) throws JSONException {
+            Map<String, String> map = new HashMap<String, String>();
+            JSONArray array = json.getJSONArray("result");
+            for (int i = 0; i < array.length(); ++i) {
+                JSONObject item = array.getJSONObject(i);
+                if (!item.has("id")) {
+                    continue;
+                }
+                String id = item.getString("id");
+                if (!id.startsWith("/en/")) {
+                    continue;
+                }
+                map.put(id.substring(4).toLowerCase(), item.getString("mid"));
+            }
+            return map;
+        }
+
+        Point getMaxImageSize() {
+            Point size = new Point();
+            Display display = getWindowManager().getDefaultDisplay();
+            if (Build.VERSION.SDK_INT >= 13) {
+                display.getSize(size);
+            } else {
+                size.set(display.getWidth(), 0);
+            }
+            size.set(size.x / 2, (int) (size.x / 2. / 4. * 3.));
+            return size;
+        }
+
+        Bitmap midToBitmap(String mid) throws IOException {
+            Point size = getMaxImageSize();
+            URL url = new URL(String.format(FREEBASE_IMAGE_URL, mid, size.x, size.y));
+            return BitmapFactory.decodeStream(url.openStream());
+        }
+
+        @Override
+        protected Bitmap doInBackground(Void... voids) {
+            try {
+                URL url = new URL(String.format(FREEBASE_SEARCH_URL, this.word));
+                BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+                StringBuilder jsonBuilder = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    jsonBuilder.append(line);
+                }
+                br.close();
+                JSONObject json = new JSONObject(jsonBuilder.toString());
+                Map<String, String> idToMid = getIdToMid(json);
+                if (idToMid.containsKey(this.word)) {
+                    return midToBitmap(idToMid.get(this.word));
+                }
+                for (String potentialWord : this.related) {
+                    if (idToMid.containsKey(potentialWord)) {
+                        return midToBitmap(idToMid.get(potentialWord));
+                    }
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bm) {
+            if (bm == null) {
+                // TODO(misha): Say we don't have an image :(.
+            }
+            image.setImageBitmap(bm);
         }
     }
 }
