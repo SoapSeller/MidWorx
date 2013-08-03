@@ -2,8 +2,10 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
-             android:layout_height="match_parent">
+             android:layout_height="match_parent"
+             >
 
+<<<<<<< HEAD
     <com.fun.midworx.views.BackgroundFun
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
@@ -11,6 +13,18 @@
 
     <RelativeLayout android:layout_width="match_parent"
                 android:layout_height="match_parent">
+=======
+<com.fun.midworx.views.BackgroundFun
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/disco"
+                />
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            xmlns:midworx="http://schemas.android.com/apk/res-auto">
+>>>>>>> 51c8a249c8c7cc6714c1192104830e3173b3cbe5
 
         <com.fun.midworx.views.CustomTextView
                 android:id="@+id/score_txt"
@@ -24,6 +38,7 @@
                 android:gravity="center"
                 android:text="Score: 0" />
 
+<<<<<<< HEAD
 
         <com.fun.midworx.views.CustomTextView
                 android:layout_below="@+id/score_txt"
@@ -35,6 +50,19 @@
                 android:gravity="center"
                 android:textColor="#ffff"
                 android:text="Time: 113" />
+=======
+    <com.fun.midworx.views.CustomTextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/time_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:textColor="#ffff"
+            android:text="Time: 113" />
+>>>>>>> 51c8a249c8c7cc6714c1192104830e3173b3cbe5
 
         <include layout="@layout/letters_organizer"
                  android:id="@+id/letters_organizer"
@@ -43,6 +71,7 @@
                  android:layout_above="@+id/guess_btn" />
 
 
+<<<<<<< HEAD
         <com.fun.midworx.views.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,6 +96,36 @@
                 android:textSize="30dp"
                 android:padding="15dp"
                 android:id="@+id/next_btn" />
+=======
+    <com.fun.midworx.views.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:text="@string/guess"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="30dp"
+            android:padding="15dp"
+            midworx:is_button="true"
+            android:id="@+id/guess_btn" />
+
+    <com.fun.midworx.views.CustomTextView
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:text="@string/next"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="30dp"
+            android:padding="15dp"
+            midworx:is_button="true"
+            android:id="@+id/next_btn" />
+>>>>>>> 51c8a249c8c7cc6714c1192104830e3173b3cbe5
 
         <com.fun.midworx.views.BoxesContainer
                 android:layout_width="match_parent"
@@ -77,6 +136,6 @@
                 android:layout_above="@+id/letters_organizer"
                 android:layout_below="@+id/time_txt" />
 
-</RelativeLayout>
+    </RelativeLayout>
 
 </FrameLayout>

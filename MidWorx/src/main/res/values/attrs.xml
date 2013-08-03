@@ -9,5 +9,6 @@
          and which attributes it supports -->
     <declare-styleable name="CustomTextView">
         <attr name="typeface"/>
+        <attr name="is_button" format="boolean"/>
     </declare-styleable>
 </resources>
