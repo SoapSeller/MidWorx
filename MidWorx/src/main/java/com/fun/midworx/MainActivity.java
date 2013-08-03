@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends MidWorxActivity {
-    private static final int MAX_GAME_SECONDS = 30;
+    private static final int MAX_GAME_SECONDS = 20;
     private BoxesContainer mBoxesContainer;
     private TextView mScoreText;
     private int mSessionScore = 0;
@@ -41,6 +41,8 @@ public class MainActivity extends MidWorxActivity {
         setGuessButton();
         setNextButton();
 
+        letterOrganizer = new LetterOrganizer(findViewById(R.id.letters_organizer));
+
         mBoxesContainer = (BoxesContainer) findViewById(R.id.words_boxes_layout);
         mScoreText = (TextView) findViewById(R.id.score_txt);
         mTimeText = (TextView) findViewById(R.id.time_txt);
@@ -49,6 +51,7 @@ public class MainActivity extends MidWorxActivity {
     }
 
     private void startNewGame() {
+        mBoxesContainer.clear();
 
         //dummy data
         List<String> words = null;
@@ -72,7 +75,6 @@ public class MainActivity extends MidWorxActivity {
         }
 
         startTimer();
-		letterOrganizer = new LetterOrganizer(findViewById(R.id.letters_organizer));
 //		letterOrganizerContainer.addView(letterOrganizer);
 
 		List<String> letters = new ArrayList<String>();
@@ -113,7 +115,7 @@ public class MainActivity extends MidWorxActivity {
             builder.setMessage("Your score is " + mSessionScore).setTitle("Game Timeout!");
             letterOrganizer.hide();
             findViewById(R.id.next_btn).setVisibility(View.VISIBLE);
-            findViewById(R.id.guess_btn).setVisibility(View.GONE);
+            findViewById(R.id.guess_btn).setVisibility(View.INVISIBLE);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     mBoxesContainer.showUnguessed();

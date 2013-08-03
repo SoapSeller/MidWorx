@@ -25,6 +25,11 @@ public class BoxesContainer extends LinearLayout {
         params.setMargins(2, 0, 2, 0);
     }
 
+    public void clear() {
+        removeAllViews();
+        mBoxes.clear();
+    }
+
     public boolean guessWord(String word) {
         WordsBox box = mBoxes.get(word.length());
         if (box != null)
