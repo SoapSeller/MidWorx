@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.fun.midworx.com.fun.midworx.views.BoxesContainer;
 import com.fun.midworx.com.fun.midworx.views.LetterOrganizer;
+import com.fun.midworx.com.fun.midworx.views.ScoreManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,13 +18,12 @@ public class MainActivity extends MidWorxActivity {
     private static final int MAX_GAME_SECONDS = 20;
     private BoxesContainer mBoxesContainer;
     private TextView mScoreText;
-    private int mSessionScore = 0;
     private int mLeftSecs;
     private TextView mTimeText;
-
 	private LetterOrganizer letterOrganizer;
-
     private Words mWords;
+    private ScoreManager mScoreManager;
+    private int mGameNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,10 @@ public class MainActivity extends MidWorxActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        mGameNumber = 0;
+
+        mScoreManager = new ScoreManager();
 
         setContentView(R.layout.activity_main);
 
@@ -51,6 +55,7 @@ public class MainActivity extends MidWorxActivity {
 
     private void startNewGame() {
         mBoxesContainer.clear();
+        mGameNumber++;
 
         //dummy data
         List<String> words = null;
@@ -74,7 +79,6 @@ public class MainActivity extends MidWorxActivity {
         }
 
         startTimer();
-//		letterOrganizerContainer.addView(letterOrganizer);
 
 		List<String> letters = new ArrayList<String>();
         String lettersWord = wordsByLength.get(5).get(0);
@@ -111,7 +115,7 @@ public class MainActivity extends MidWorxActivity {
         if (reason == EndGameReason.TIMEOUT) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-            builder.setMessage("Your score is " + mSessionScore).setTitle("Game Timeout!");
+            builder.setMessage("Your score is " + mScoreManager.getSessionScore()).setTitle("Game Timeout!");
             letterOrganizer.hide();
             findViewById(R.id.next_btn).setVisibility(View.VISIBLE);
             findViewById(R.id.guess_btn).setVisibility(View.INVISIBLE);
@@ -147,16 +151,12 @@ public class MainActivity extends MidWorxActivity {
 
     private void guessWord(String word) {
         if (mBoxesContainer.guessWord(word))
-            addToScore(word);
+            updateScore(word);
     }
 
-    private void addToScore(String word) {
-        mSessionScore += calculateWordScore(word);
-        mScoreText.setText("Score: " + mSessionScore);
-    }
-
-    private int calculateWordScore(String word) {
-        return word.length();
+    private void updateScore(String word) {
+        mScoreManager.guessedWord(word, mGameNumber);
+        mScoreText.setText("Score: " + mScoreManager.getSessionScore());
     }
 
     private String getCurrentGuess() {
