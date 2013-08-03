@@ -38,8 +38,6 @@ public class DictionaryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dictionary);
 
-        // TODO(mishas): Debugging needed:
-        //  Weird result: "derby"
         final String word = getIntent().getExtras().getString("word");
         new DefinitionGetter(word, this).execute();
     }
@@ -56,14 +54,16 @@ public class DictionaryActivity extends Activity {
             String text = word;
             String phonetic = "/" + word + "/";
             String sound = null;
-            String label = "";
+            String label = null;
             JSONArray terms = headword.getJSONArray("terms");
             for (int i = 0; i < terms.length(); ++i) {
                 JSONObject term = terms.getJSONObject(i);
                 if (term.getString("type").equals("text")) {
                     text = term.getString("text");
-                    JSONArray labels = term.getJSONArray("labels");
-                    label = labels.getJSONObject(0).getString("text");
+                    if (term.has("labels")) {
+                        JSONArray labels = term.getJSONArray("labels");
+                        label = labels.getJSONObject(0).getString("text");
+                    }
                 } else if (term.getString("type").equals("phonetic")) {
                     phonetic = term.getString("text");
                 } else if (term.getString("type").equals("sound")) {
@@ -219,7 +219,11 @@ public class DictionaryActivity extends Activity {
                 Map<Pair<String, String>, List<String>> relatedDict = new HashMap<Pair<String, String>, List<String>>();
                 for (Map.Entry<String, List<HeadWord>> labelEntry : headwords.entrySet()) {
                     View definition = getLayoutInflater().inflate(R.layout.definition, null);
-                    ((TextView) definition.findViewById(R.id.label)).setText(labelEntry.getKey());
+                    TextView labelText = (TextView) definition.findViewById(R.id.label);
+                    labelText.setText(labelEntry.getKey());
+                    if (labelEntry.getKey() == null) {
+                        labelText.setVisibility(View.GONE);
+                    }
                     List<Pair<String, List<String>>> meanings = new ArrayList<Pair<String, List<String>>>();
                     for (HeadWord headword : labelEntry.getValue()) {
                         Pair<String, String> relatedKey = Pair.create(headword.text, labelEntry.getKey());
