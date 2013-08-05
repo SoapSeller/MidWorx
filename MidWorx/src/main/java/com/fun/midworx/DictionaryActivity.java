@@ -299,14 +299,10 @@ public class DictionaryActivity extends Activity {
             JSONArray array = json.getJSONArray("result");
             for (int i = 0; i < array.length(); ++i) {
                 JSONObject item = array.getJSONObject(i);
-                if (!item.has("id")) {
+                if (!item.has("name") || map.containsKey(item.getString("name").toLowerCase())) {
                     continue;
                 }
-                String id = item.getString("id");
-                if (!id.startsWith("/en/")) {
-                    continue;
-                }
-                map.put(id.substring(4).toLowerCase(), item.getString("mid"));
+                map.put(item.getString("name").toLowerCase(), item.getString("mid"));
             }
             return map;
         }
