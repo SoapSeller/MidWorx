@@ -11,4 +11,8 @@
         <attr name="typeface"/>
         <attr name="is_button" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="BackgroundFun">
+        <attr name="tile_image" format="integer"/>
+    </declare-styleable>
 </resources>
