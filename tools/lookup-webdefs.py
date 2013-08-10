@@ -28,10 +28,12 @@ class Category(object):
             open('words-webdef.txt', 'w'),
             open('words-failed.txt', 'w'))
         self.lock = threading.Lock()
+        self.nthreads = 64
+        self.word_filename = "../MidWorx/src/main/assets/words"
 
     def the_word_loop(self):
-        wordfile = open("../MidWorx/src/main/assets/words")
-        pool = multiprocessing.pool.ThreadPool(64)
+        wordfile = open(self.word_filename)
+        pool = multiprocessing.pool.ThreadPool(self.nthreads)
         def process_word(word):
             word = word.strip()
             print '==', word, '=='
@@ -53,4 +55,16 @@ class Category(object):
 
 
 if __name__ == '__main__':
-    Category().the_word_loop()
+    import argparse
+    a = argparse.ArgumentParser(description="Sort words into categories")
+    a.add_argument('--wordfile', default="../MidWorx/src/main/assets/words",
+            help="text file containing words (one per line)")
+    a.add_argument('--jobs', type=int, default=1, 
+            help="number of worker threads")
+    a = a.parse_args()
+
+    c = Category()
+    c.nthreads = a.jobs
+    c.word_filename = a.wordfile
+    
+    c.the_word_loop()
