@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 public class MidWorxActivity extends Activity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -31,5 +33,17 @@ public class MidWorxActivity extends Activity {
     private void dimSystemUi() {
         final View view = getWindow().getDecorView();
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EasyTracker.getInstance().activityStop(this);
     }
 }
