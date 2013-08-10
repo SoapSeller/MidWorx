@@ -1,11 +1,11 @@
 package com.fun.midworx;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.fun.midworx.crouton.Crouton;
@@ -61,10 +61,12 @@ public class LoginActivity extends BaseGameActivity {
         findViewById(R.id.help_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                WebView wv = new WebView(view.getContext());
+                wv.loadData(getString(R.string.help_text), "text/html", "utf-8");
                 AlertDialog.Builder alertDialogBuilder =
                         new AlertDialog.Builder(LoginActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
                 alertDialogBuilder.setTitle(R.string.help_title);
-                alertDialogBuilder.setMessage(R.string.help_text);
+                alertDialogBuilder.setView(wv);
                 alertDialogBuilder.setNeutralButton(R.string.help_done, null);
                 alertDialogBuilder.show();
             }
