@@ -1,16 +1,21 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/disco"
-    tools:context=".LoginActivity">
-<!--
-    <ImageView
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:midworx="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <com.fun.midworx.views.BackgroundFun
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.4"
-            android:scaleType="centerCrop"
-            android:src="@drawable/background"/>-->
+            midworx:tile_image="@drawable/nebula_bl"
+           />
+
+
+<LinearLayout
+        android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
 
     <TextView
             android:textSize="14dp"
@@ -29,6 +34,35 @@
             android:layout_height="wrap_content"
             android:text="@string/start_game"
             android:gravity="center"
+            android:visibility="gone"
             android:background="@drawable/btn"/>
 
-</RelativeLayout>
+    <!-- sign-in button -->
+    <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    <!-- sign-out button -->
+    <Button
+            android:id="@+id/sign_out_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Out"
+            android:visibility="gone" />
+
+
+    <com.fun.midworx.views.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Leaderboard"
+            android:textColor="#fff"
+            android:textSize="30dp"
+            android:padding="15dp"
+            midworx:is_button="true"
+            android:id="@+id/leaderboard" />
+
+</LinearLayout>
+
+</FrameLayout>

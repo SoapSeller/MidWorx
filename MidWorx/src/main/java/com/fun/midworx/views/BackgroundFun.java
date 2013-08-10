@@ -1,6 +1,7 @@
 package com.fun.midworx.views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,17 +19,19 @@ import com.fun.midworx.R;
  */
 public class BackgroundFun extends View {
 
-    private Bitmap cow;
+    private Bitmap tile;
     private float scrollX;
     private int tilesX;
     private int tilesY;
 
     private float mMovementOffset;
     private final static int INVALIDATE_DELAY = 100;
+    private static final int DEFAULT_IMG = R.drawable.peacock_blues_5;
+
 
     public BackgroundFun(Context context) {
         super(context);
-        loadImage();
+        loadImage(DEFAULT_IMG);
     }
 
     public void initiateSpeed() {
@@ -41,46 +44,69 @@ public class BackgroundFun extends View {
 
     public BackgroundFun(Context context, AttributeSet attrs) {
         super(context, attrs);
-        loadImage();
+        parseAttributes(context, attrs);
     }
 
     public BackgroundFun(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        loadImage();
+        parseAttributes(context, attrs);
     }
 
-    private void loadImage() {
-        cow = BitmapFactory.decodeResource(getResources(), R.drawable.peacock_blues_5);
-        tilesX = tilesY = 0;
-        scrollX = 0.0f;
+    /**
+     * Reads the attribute tile_image and prepares the resources.
+     *
+     * @param context from ctor
+     * @param attrs from ctor
+     */
+    private void parseAttributes(Context context, AttributeSet attrs) {
+        TypedArray values = context.obtainStyledAttributes(attrs, R.styleable.BackgroundFun);
+        loadImage(values.getResourceId(R.styleable.BackgroundFun_tile_image, DEFAULT_IMG));
+    }
 
+    /**
+     * Loads an image resource and stores the bitmap in 'tile'.
+     * @param resource drawable resource id
+     */
+    private void loadImage(int resource) {
+        tile = BitmapFactory.decodeResource(getResources(), resource);
+        tilesX = tilesY = 1;
+        scrollX = 0.0f;
         initiateSpeed();
 
+        // Make sure we get a callback when
         getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
             @Override
             public void onGlobalLayout() {
-
-                // Ensure you call it only once :
+                // Ensure it gets called only once :
                 getViewTreeObserver().removeGlobalOnLayoutListener(this);
 
-                // Here you can get the size :)
-                tilesX = getWidth() / cow.getWidth() + 2;
-                tilesY = getHeight() / cow.getHeight() + 1;
+                onResize();
             }
         });
+    }
+
+    /**
+     * Called when the view is resized (see loadImage).
+     */
+    private void onResize() {
+        // Compute number of tiles horizontally/vertically
+        if (tile != null) {
+            tilesX = getWidth() / tile.getWidth() + 2;
+            tilesY = getHeight() / tile.getHeight() + 1;
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int w = cow.getWidth();
-        int h = cow.getHeight();
-        scrollX += mMovementOffset;
-        while (scrollX > cow.getWidth()) scrollX -= cow.getWidth();
+        int w = tile.getWidth();
+        int h = tile.getHeight();
+        scrollX += 4.25;
+        while (scrollX > tile.getWidth()) scrollX -= tile.getWidth();
         for (int x = 0; x < tilesX; x++)
             for (int y = 0; y < tilesY; y++)
-                canvas.drawBitmap(cow, x*w-scrollX, y*h, new Paint());
+                canvas.drawBitmap(tile, x*w-scrollX, y*h, new Paint());
         postInvalidateDelayed(INVALIDATE_DELAY);
     }
 }

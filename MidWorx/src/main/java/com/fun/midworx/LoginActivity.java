@@ -7,15 +7,48 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.fun.midworx.crouton.Crouton;
+import com.fun.midworx.crouton.Style;
+import com.google.android.gms.games.GamesClient;
+import com.google.example.games.basegameutils.BaseGameActivity;
+
 import java.util.List;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends BaseGameActivity {
+
+    private boolean mSignedIn = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
+
+
+        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                beginUserInitiatedSignIn();
+            }
+        });
+
+        findViewById(R.id.sign_out_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+            }
+        });
+
+        findViewById(R.id.leaderboard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(mHelper.getGamesClient().getLeaderboardIntent("CgkIpoLHvOoMEAIQAQ"), 0);
+            }
+        });
+
+        updateUIState();
+
         updateTextTotalScore();
         findViewById(R.id.start_game_btn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +71,41 @@ public class LoginActivity extends Activity {
             Log.i("WORDS", e.toString());
         }
     }
+
+    private void updateUIState() {
+        View leaderboard = findViewById(R.id.leaderboard);
+        View signIn = findViewById(R.id.sign_in_button);
+        View signOut = findViewById(R.id.sign_out_button);
+        View startGame = findViewById(R.id.start_game_btn);
+
+        if (mSignedIn) {
+            signIn.setVisibility(View.GONE);
+            signOut.setVisibility(View.VISIBLE);
+            startGame.setVisibility(View.VISIBLE);
+            leaderboard.setVisibility(View.VISIBLE);
+        }
+        else {
+            leaderboard.setVisibility(View.GONE);
+            signIn.setVisibility(View.VISIBLE);
+            signOut.setVisibility(View.GONE);
+            startGame.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onSignInFailed() {
+        // Sign in has failed. So show the user the sign-in button.
+        mSignedIn = false;
+        updateUIState();
+    }
+
+    @Override
+    public void onSignInSucceeded() {
+        mSignedIn = true;
+        // show sign-out button, hide the sign-in button
+        updateUIState();
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

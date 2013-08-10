@@ -108,7 +108,7 @@ public class DictionaryActivity extends Activity {
 
             this.text = text;
             this.phonetic = phonetic;
-            this.sound = Uri.parse(sound);
+            this.sound = (sound == null) ? null : Uri.parse(sound);
             this.label = label;
         }
     }
@@ -219,13 +219,17 @@ public class DictionaryActivity extends Activity {
                 }
                 wordText.setText(titleText);
                 phoneticText.setText(firstHeadword.phonetic);
-                final Uri sound = firstHeadword.sound;
-                pronounceButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        MediaPlayer.create(context, sound).start();
-                    }
-                });
+                if (firstHeadword.sound == null) {
+                    pronounceButton.setVisibility(View.GONE);
+                } else {
+                    final Uri sound = firstHeadword.sound;
+                    pronounceButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            MediaPlayer.create(context, sound).start();
+                        }
+                    });
+                }
 
                 Map<Pair<String, String>, List<String>> relatedDict = new HashMap<Pair<String, String>, List<String>>();
                 for (Map.Entry<String, List<HeadWord>> labelEntry : headwords.entrySet()) {
@@ -299,14 +303,10 @@ public class DictionaryActivity extends Activity {
             JSONArray array = json.getJSONArray("result");
             for (int i = 0; i < array.length(); ++i) {
                 JSONObject item = array.getJSONObject(i);
-                if (!item.has("id")) {
+                if (!item.has("name") || map.containsKey(item.getString("name").toLowerCase())) {
                     continue;
                 }
-                String id = item.getString("id");
-                if (!id.startsWith("/en/")) {
-                    continue;
-                }
-                map.put(id.substring(4).toLowerCase(), item.getString("mid"));
+                map.put(item.getString("name").toLowerCase(), item.getString("mid"));
             }
             return map;
         }

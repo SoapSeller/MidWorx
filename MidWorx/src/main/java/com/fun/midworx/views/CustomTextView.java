@@ -2,6 +2,7 @@ package com.fun.midworx.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
@@ -32,7 +33,8 @@ public class CustomTextView extends TextView {
 
     private void parseAttributes(Context context, AttributeSet attrs) {
         if (agency == null) {
-            agency = Typeface.createFromAsset(context.getAssets(), "AGENCYR.TTF");
+            agency = isInEditMode() ? Typeface.SANS_SERIF :
+                     Typeface.createFromAsset(context.getAssets(), "AGENCYR.TTF");
         }
 
 
@@ -47,6 +49,11 @@ public class CustomTextView extends TextView {
                 //singleton somewhere to avoid unnecessary copies
                 setTypeface(agency);
                 break;
+        }
+
+        boolean isButton = values.getBoolean(R.styleable.CustomTextView_is_button, false);
+        if (isButton) {
+            setBackgroundResource(R.drawable.rounded_bg);
         }
     }
 }

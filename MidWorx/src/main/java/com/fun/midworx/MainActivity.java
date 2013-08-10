@@ -90,7 +90,8 @@ public class MainActivity extends MidWorxActivity {
         }
 
         for (String word: words) {
-            wordsByLength.get(word.length()-1).add(word);
+            if (word.length() >= 3)
+                wordsByLength.get(word.length()-1).add(word);
         }
 
         for (int i = 2; i < 6; ++i) {
@@ -110,7 +111,6 @@ public class MainActivity extends MidWorxActivity {
         letterOrganizer.show();
         findViewById(R.id.next_btn).setVisibility(View.GONE);
         findViewById(R.id.guess_btn).setVisibility(View.VISIBLE);
-
     }
 
     private enum EndGameReason {TIMEOUT,GUESS_ALL_WORDS}
@@ -136,10 +136,10 @@ public class MainActivity extends MidWorxActivity {
 
             builder.setMessage("Your score is " + mScoreManager.getSessionScore()).setTitle("Game Timeout!");
             letterOrganizer.hide();
-            findViewById(R.id.next_btn).setVisibility(View.VISIBLE);
-            findViewById(R.id.guess_btn).setVisibility(View.INVISIBLE);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
+                    findViewById(R.id.next_btn).setVisibility(View.VISIBLE);
+                    findViewById(R.id.guess_btn).setVisibility(View.INVISIBLE);
                     mBoxesContainer.showUnguessed();
                 }
             });
