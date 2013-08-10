@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
 
 public class MidWorxActivity extends Activity {
+    protected Tracker tracker;
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -39,11 +42,21 @@ public class MidWorxActivity extends Activity {
     protected void onStart() {
         super.onStart();
         EasyTracker.getInstance().activityStart(this);
+        tracker = EasyTracker.getTracker();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         EasyTracker.getInstance().activityStop(this);
+        tracker = null;
+    }
+
+    /**
+     * Delegates call to GA tracker.
+     */
+    protected void sendEvent(String category, String action, String label) {
+        // TODO(misha): Do not crash if fails in production.
+        tracker.sendEvent(category, action, label, 1L);
     }
 }

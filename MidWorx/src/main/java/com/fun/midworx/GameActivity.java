@@ -63,11 +63,15 @@ public class GameActivity extends MidWorxActivity {
         mBoxesContainer = (BoxesContainer) findViewById(R.id.words_boxes_layout);
         mScoreText = (TextView) findViewById(R.id.score_txt);
         mTimeText = (TextView) findViewById(R.id.time_txt);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         startNewGame();
     }
 
-	private void setupScoreListener() {
+    private void setupScoreListener() {
 		mScoring.registerOnScoreChange(new Scoring.OnScoreChange() {
 			@Override
 			public void updateScore(int guessScore, int totalScore) {
@@ -115,7 +119,7 @@ public class GameActivity extends MidWorxActivity {
         findViewById(R.id.next_btn).setVisibility(View.GONE);
         findViewById(R.id.guess_btn).setVisibility(View.VISIBLE);
 
-        EasyTracker.getTracker().sendEvent("GameActivity", "startNewGame", lettersWord, 1L);
+        sendEvent("GameActivity", "startNewGame", lettersWord);
     }
 
     private enum EndGameReason {TIMEOUT,GUESS_ALL_WORDS}
@@ -174,9 +178,9 @@ public class GameActivity extends MidWorxActivity {
     }
 
     private void guessWord(String word) {
-        EasyTracker.getTracker().sendEvent("GameActivity", "guessWord", word, 1L);
+        sendEvent("GameActivity", "guessWord", word);
         if (mBoxesContainer.guessWord(word)) {
-            EasyTracker.getTracker().sendEvent("GameActivity", "guessWord_success", word, 1L);
+            sendEvent("GameActivity", "guessWord_success", word);
 			mScoring.wordGuessed(word, mGameNumber);
         }
     }
