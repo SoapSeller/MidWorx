@@ -22,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +43,7 @@ import java.util.logging.Logger;
 
 public class DictionaryActivity extends Activity {
     private static final Logger logger = Logger.getLogger(DictionaryActivity.class.getName());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,8 @@ public class DictionaryActivity extends Activity {
 
         final String word = getIntent().getExtras().getString("word");
         new DefinitionGetter(word, this).execute();
+
+        EasyTracker.getTracker().sendEvent("DictionaryActivity", "open", word, 1L);
     }
 
     static class HeadWord {
@@ -226,6 +231,7 @@ public class DictionaryActivity extends Activity {
                     pronounceButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            EasyTracker.getTracker().sendEvent("DictionaryActivity", "sound", word, 1L);
                             MediaPlayer.create(context, sound).start();
                         }
                     });

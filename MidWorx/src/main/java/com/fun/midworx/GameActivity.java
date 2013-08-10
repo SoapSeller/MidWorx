@@ -12,6 +12,7 @@ import com.fun.midworx.crouton.Style;
 import com.fun.midworx.views.BoxesContainer;
 import com.fun.midworx.views.LetterOrganizer;
 import com.fun.midworx.views.Scoring;
+import com.google.analytics.tracking.android.EasyTracker;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -113,6 +114,8 @@ public class GameActivity extends MidWorxActivity {
         letterOrganizer.show();
         findViewById(R.id.next_btn).setVisibility(View.GONE);
         findViewById(R.id.guess_btn).setVisibility(View.VISIBLE);
+
+        EasyTracker.getTracker().sendEvent("GameActivity", "startNewGame", lettersWord, 1L);
     }
 
     private enum EndGameReason {TIMEOUT,GUESS_ALL_WORDS}
@@ -171,8 +174,11 @@ public class GameActivity extends MidWorxActivity {
     }
 
     private void guessWord(String word) {
-        if (mBoxesContainer.guessWord(word))
+        EasyTracker.getTracker().sendEvent("GameActivity", "guessWord", word, 1L);
+        if (mBoxesContainer.guessWord(word)) {
+            EasyTracker.getTracker().sendEvent("GameActivity", "guessWord_success", word, 1L);
 			mScoring.wordGuessed(word, mGameNumber);
+        }
     }
 
 	private void updateScore(int guessScore, int totalScore){
