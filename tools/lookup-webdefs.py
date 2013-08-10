@@ -1,6 +1,9 @@
+#!/usr/bin/python
+
 import urllib2
 import json
-
+import multiprocessing.pool
+import threading
 
 
 class Lookup(object):
@@ -14,7 +17,6 @@ class Lookup(object):
         x = urllib2.urlopen(self.URL_DEFINE % {'word': word}).read()
         x = x[2:-10].replace(r"\x", r"\u00")
         return self.Definition(json.loads(x))
-
     
 
 class Category(object):
@@ -25,23 +27,28 @@ class Category(object):
             open('words-primary.txt', 'w'),
             open('words-webdef.txt', 'w'),
             open('words-failed.txt', 'w'))
+        self.lock = threading.Lock()
 
     def the_word_loop(self):
         wordfile = open("../MidWorx/src/main/assets/words")
-        for word in wordfile:
+        pool = multiprocessing.pool.ThreadPool(64)
+        def process_word(word):
             word = word.strip()
             print '==', word, '=='
             try:
                 d = self.lookup.get_def(word)
-                if d.is_primary():
-                    print 'primary'
-                    print >>self.out_primary, word
-                else:
-                    print 'web'
-                    print >>self.out_webdef, word
+                with self.lock:
+                  if d.is_primary():
+                      print 'primary'
+                      print >>self.out_primary, word
+                  else:
+                      print 'web'
+                      print >>self.out_webdef, word
             except:
+              with self.lock:
                 print 'failed'
                 print >>self.out_failed, word
+        pool.map(process_word, wordfile)
 
 
 
