@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Tracker;
-import com.google.example.games.basegameutils.BaseGameActivity;
 
 public class MidWorxActivity extends Activity {
     protected Tracker tracker;
