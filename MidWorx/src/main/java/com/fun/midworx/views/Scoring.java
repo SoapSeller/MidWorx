@@ -24,12 +24,12 @@ public class Scoring {
     public void wordGuessed(String word, int gameNumber) {
 		int scoreEarned = calculateWordScore(word, gameNumber);
 		mSessionScore = mSessionScore + scoreEarned;
-
+		notifyListeners(scoreEarned, mSessionScore);
     }
 
-	private void notifyListeners(int guessScore, int totalSctore){
+	private void notifyListeners(int guessScore, int totalScore){
 		for (OnScoreChange listener : listeners) {
-			listener.updateScore(guessScore,totalSctore);
+			listener.updateScore(guessScore,totalScore);
 		}
 	}
 
