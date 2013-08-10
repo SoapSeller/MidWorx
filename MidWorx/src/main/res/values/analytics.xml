@@ -2,6 +2,12 @@
 <resources>
     <string name="ga_trackingId">UA-43084772-1</string>
 
+    <!--TODO(misha): Update version to 1.0 before moving to google play-->
+    <string name="ga_appVersion">0.1</string>
+
+    <!--TODO(misha): Remove debugging before going to prod-->
+    <bool name="ga_debug">true</bool>
+
     <!--Enable automatic activity tracking-->
     <bool name="ga_autoActivityTracking">true</bool>
 
