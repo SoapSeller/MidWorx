@@ -8,9 +8,6 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-import com.fun.midworx.crouton.Crouton;
-import com.fun.midworx.crouton.Style;
-import com.google.android.gms.games.GamesClient;
 import com.google.example.games.basegameutils.BaseGameActivity;
 
 import java.util.List;
@@ -64,7 +61,7 @@ public class LoginActivity extends BaseGameActivity {
             @Override
             public void onClick(View view) {
                 WebView wv = new WebView(view.getContext());
-                wv.loadData(getString(R.string.help_text), "text/html", "utf-8");
+                wv.loadUrl("file:///android_asset/help_text.html");
                 AlertDialog.Builder alertDialogBuilder =
                         new AlertDialog.Builder(LoginActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
                 alertDialogBuilder.setTitle(R.string.help_title);
