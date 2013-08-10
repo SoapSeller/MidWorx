@@ -108,7 +108,7 @@ public class DictionaryActivity extends Activity {
 
             this.text = text;
             this.phonetic = phonetic;
-            this.sound = Uri.parse(sound);
+            this.sound = (sound == null) ? null : Uri.parse(sound);
             this.label = label;
         }
     }
@@ -219,13 +219,17 @@ public class DictionaryActivity extends Activity {
                 }
                 wordText.setText(titleText);
                 phoneticText.setText(firstHeadword.phonetic);
-                final Uri sound = firstHeadword.sound;
-                pronounceButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        MediaPlayer.create(context, sound).start();
-                    }
-                });
+                if (firstHeadword.sound == null) {
+                    pronounceButton.setVisibility(View.GONE);
+                } else {
+                    final Uri sound = firstHeadword.sound;
+                    pronounceButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            MediaPlayer.create(context, sound).start();
+                        }
+                    });
+                }
 
                 Map<Pair<String, String>, List<String>> relatedDict = new HashMap<Pair<String, String>, List<String>>();
                 for (Map.Entry<String, List<HeadWord>> labelEntry : headwords.entrySet()) {
