@@ -1,6 +1,7 @@
 package com.fun.midworx;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends MidWorxActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,18 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, GameActivity.class);
                 startActivityForResult(intent, 0);
+            }
+        });
+
+        findViewById(R.id.help_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialogBuilder =
+                        new AlertDialog.Builder(LoginActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+                alertDialogBuilder.setTitle(R.string.help_title);
+                alertDialogBuilder.setMessage(R.string.help_text);
+                alertDialogBuilder.setNeutralButton(R.string.help_done, null);
+                alertDialogBuilder.show();
             }
         });
 
