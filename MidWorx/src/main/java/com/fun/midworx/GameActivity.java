@@ -1,7 +1,5 @@
 package com.fun.midworx;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -13,7 +11,6 @@ import com.fun.midworx.views.BackgroundFun;
 import com.fun.midworx.views.BoxesContainer;
 import com.fun.midworx.views.LetterOrganizer;
 import com.fun.midworx.views.Scoring;
-import com.google.analytics.tracking.android.EasyTracker;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +30,8 @@ public class GameActivity extends MidWorxActivity {
 	private TextView mScoreText;
 	private TextView mTimeText;
 	private LetterOrganizer mLetterOrganizer;
+	private BackgroundFun mBackground;
+	private TextView mLevelText;
 
 	private boolean isSixLetterWordGuessed;
 	private int mGameNumber = 0;
@@ -116,8 +115,8 @@ public class GameActivity extends MidWorxActivity {
 					mTimeText.setText("Time: " + "--");
 					timesUp();
 				} else {
-//					int timePassed = mGameTimer.getSecondsSinceStart();
-					mTimeText.setText("Time: ");
+					int timeLeft = mGameTimer.getTimeLeft();
+					mTimeText.setText("Time: " + timeLeft);
 					mTimeText.postDelayed(this, 1000);
 				}
 			}

@@ -71,18 +71,6 @@ public class LoginActivity extends BaseGameActivity {
             }
         });
 
-        try {
-            Words w = new Words(getApplicationContext());
-
-            long start  = System.currentTimeMillis();
-            List<String> words = w.getWords();
-            for (String s: words) {
-                Log.i("WORDS", s);
-            }
-            Log.i("WORDS", "Time: " + (System.currentTimeMillis()-start));
-        } catch (Exception e){
-            Log.i("WORDS", e.toString());
-        }
     }
 
     private void updateUIState() {
