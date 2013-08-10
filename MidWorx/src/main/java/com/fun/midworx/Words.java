@@ -1,6 +1,7 @@
 package com.fun.midworx;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -56,7 +57,8 @@ public class Words {
 
             wordsReader.reset();
             wordsReader.skip(wordPos);
-            words.add(wordsReader.readLine().toLowerCase());
+            String word = wordsReader.readLine().toLowerCase();
+            words.add(word);
         }
 
         return words;
