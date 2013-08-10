@@ -91,7 +91,6 @@ public class GameActivity extends MidWorxActivity {
         mLevelText.setText("Level: " + mGameNumber);
         mBackground.increaseSpeed();
 
-        //dummy data
         List<String> words = null;
         try {
             words = mWords.getWords();
@@ -105,8 +104,7 @@ public class GameActivity extends MidWorxActivity {
         }
 
         for (String word: words) {
-            if (word.length() >= 3)
-                wordsByLength.get(word.length()-1).add(word);
+            wordsByLength.get(word.length()-1).add(word);
         }
 
         for (int i = 2; i < 6; ++i) {

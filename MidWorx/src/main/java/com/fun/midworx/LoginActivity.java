@@ -37,6 +37,8 @@ public class LoginActivity extends BaseGameActivity {
             @Override
             public void onClick(View v) {
                 signOut();
+                mSignedIn = false;
+                updateUIState();
             }
         });
 
