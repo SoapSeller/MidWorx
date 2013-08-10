@@ -11,14 +11,14 @@ import com.fun.midworx.crouton.Crouton;
 import com.fun.midworx.crouton.Style;
 import com.fun.midworx.views.BoxesContainer;
 import com.fun.midworx.views.LetterOrganizer;
-import com.fun.midworx.views.ScoreManager;
+import com.fun.midworx.views.Scoring;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends MidWorxActivity {
+public class GameActivity extends MidWorxActivity {
     private static final int MAX_GAME_SECONDS = 20;
     private BoxesContainer mBoxesContainer;
     private TextView mScoreText;
@@ -26,7 +26,7 @@ public class MainActivity extends MidWorxActivity {
     private TextView mTimeText;
 	private LetterOrganizer letterOrganizer;
     private Words mWords;
-    private ScoreManager mScoreManager;
+    private Scoring mScoring;
     private int mGameNumber;
     private Style croutonStyle;
 
@@ -34,21 +34,23 @@ public class MainActivity extends MidWorxActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        try {
-            mWords = new Words(getApplicationContext());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		mScoring = new Scoring();
+		this.setupScoreListener();
 
-        croutonStyle = new Style.Builder()
+		try {
+			mWords = new Words(getApplicationContext());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		croutonStyle = new Style.Builder()
                 .setConfiguration(new Configuration.Builder()
                         .setDuration(300)
                         .build())
                 .build();
 
-        mGameNumber = 0;
+		mGameNumber = 0;
 
-        mScoreManager = new ScoreManager();
 
         setContentView(R.layout.activity_main);
 
@@ -64,14 +66,23 @@ public class MainActivity extends MidWorxActivity {
         startNewGame();
     }
 
-    private void startNewGame() {
+	private void setupScoreListener() {
+		mScoring.registerOnScoreChange(new Scoring.OnScoreChange() {
+			@Override
+			public void updateScore(int guessScore, int totalScore) {
+				GameActivity.this.updateScore(guessScore,totalScore);
+			}
+		});
+	}
+
+	private void startNewGame() {
         mBoxesContainer.clear();
         mGameNumber++;
 
         //dummy data
         List<String> words = null;
         try {
-            words = mWords.getWord();
+            words = mWords.getWords();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -125,7 +136,7 @@ public class MainActivity extends MidWorxActivity {
         if (reason == EndGameReason.TIMEOUT) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-            builder.setMessage("Your score is " + mScoreManager.getSessionScore()).setTitle("Game Timeout!");
+            builder.setMessage("Your score is " + mScoring.getSessionScore()).setTitle("Game Timeout!");
             letterOrganizer.hide();
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
@@ -161,14 +172,13 @@ public class MainActivity extends MidWorxActivity {
 
     private void guessWord(String word) {
         if (mBoxesContainer.guessWord(word))
-            updateScore(word);
+			mScoring.wordGuessed(word, mGameNumber);
     }
 
-    private void updateScore(String word) {
-        int earnedPoints = mScoreManager.guessedWord(word, mGameNumber);
-        mScoreText.setText("Score: " + mScoreManager.getSessionScore());
-        Crouton.makeText(this, earnedPoints + " points!!!", croutonStyle).show();
-    }
+	private void updateScore(int guessScore, int totalScore){
+		mScoreText.setText("Score: " + totalScore);
+		Crouton.makeText(this, guessScore + " points!!!", croutonStyle).show();
+	}
 
     private String getCurrentGuess() {
 		return letterOrganizer.getCurrentGuessAndReset();

@@ -34,7 +34,7 @@ public class Words {
         wordsIdxOffset = UINT_SIZE + numOfWords*UINT_SIZE*2;
     }
 
-    public List<String> getWord() throws IOException {
+    public List<String> getWords() throws IOException {
         List<String> words = new ArrayList<String>();
 
         int pos, num;

@@ -20,7 +20,7 @@ public class LoginActivity extends Activity {
         findViewById(R.id.start_game_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, GameActivity.class);
                 startActivityForResult(intent, 0);
             }
         });
@@ -29,7 +29,7 @@ public class LoginActivity extends Activity {
             Words w = new Words(getApplicationContext());
 
             long start  = System.currentTimeMillis();
-            List<String> words = w.getWord();
+            List<String> words = w.getWords();
             for (String s: words) {
                 Log.i("WORDS", s);
             }

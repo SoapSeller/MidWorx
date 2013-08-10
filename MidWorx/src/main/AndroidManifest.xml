@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.fun.midworx.MainActivity"
+            android:name=".GameActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
