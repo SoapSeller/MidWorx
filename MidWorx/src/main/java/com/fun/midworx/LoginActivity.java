@@ -1,6 +1,7 @@
 package com.fun.midworx;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +18,6 @@ import java.util.List;
 public class LoginActivity extends BaseGameActivity {
 
     private boolean mSignedIn = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +53,20 @@ public class LoginActivity extends BaseGameActivity {
         findViewById(R.id.start_game_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, GameActivity.class);
                 startActivityForResult(intent, 0);
+            }
+        });
+
+        findViewById(R.id.help_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialogBuilder =
+                        new AlertDialog.Builder(LoginActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+                alertDialogBuilder.setTitle(R.string.help_title);
+                alertDialogBuilder.setMessage(R.string.help_text);
+                alertDialogBuilder.setNeutralButton(R.string.help_done, null);
+                alertDialogBuilder.show();
             }
         });
 
@@ -62,7 +74,7 @@ public class LoginActivity extends BaseGameActivity {
             Words w = new Words(getApplicationContext());
 
             long start  = System.currentTimeMillis();
-            List<String> words = w.getWord();
+            List<String> words = w.getWords();
             for (String s: words) {
                 Log.i("WORDS", s);
             }

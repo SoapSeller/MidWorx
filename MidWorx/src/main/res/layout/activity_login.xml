@@ -63,6 +63,18 @@
             midworx:is_button="true"
             android:id="@+id/leaderboard" />
 
+    <TextView
+            android:textSize="30dp"
+            android:layout_margin="20dp"
+            android:id="@+id/help_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/start_game_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/help"
+            android:gravity="center"
+            android:background="@drawable/btn"/>
+
 </LinearLayout>
 
 </FrameLayout>
