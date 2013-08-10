@@ -16,26 +16,17 @@ public class Words {
 
     private static final int MIN_WORD_COUNT = 5;
 
-    private DataInputStream stream;
-    private BufferedReader wordsReader;
-    private int numOfWords;
-    private int wordsIdxOffset;
+    public static List<String> getWords(Context context) throws IOException {
+		Random random = new Random();
 
-    private Random random;
+		DataInputStream stream = new DataInputStream(context.getAssets().open("words.idx"));
+		BufferedReader wordsReader = new BufferedReader(new InputStreamReader(context.getAssets().open("words")));
+		wordsReader.mark(Integer.MAX_VALUE);
 
-    public Words(Context context) throws IOException {
-        random = new Random();
+		int numOfWords = swapEndian(stream.readInt());
+		int wordsIdxOffset = UINT_SIZE + numOfWords*UINT_SIZE*2;
 
-        stream = new DataInputStream(context.getAssets().open("words.idx"));
-        wordsReader = new BufferedReader(new InputStreamReader(context.getAssets().open("words")));
-        wordsReader.mark(Integer.MAX_VALUE);
 
-        numOfWords = swapEndian(stream.readInt());
-
-        wordsIdxOffset = UINT_SIZE + numOfWords*UINT_SIZE*2;
-    }
-
-    public List<String> getWords() throws IOException {
         List<String> words = new ArrayList<String>();
 
         int pos, num;
@@ -64,7 +55,7 @@ public class Words {
         return words;
     }
 
-    private int swapEndian(int val) {
+    private static int swapEndian(int val) {
         return ((val & 0xFF) << 24)  |
                ((val & 0xFF00) << 8) |
                ((val >> 8) & 0xFF00) |
